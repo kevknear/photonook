@@ -2,214 +2,239 @@
 
 > *Your gallery, clean and cozy.*
 
-App de iOS para limpiar la galería del iPhone con gestos tipo Tinder: swipe izquierda = borrar,
-swipe derecha = conservar.
+An iOS app for cleaning up your iPhone photo library with Tinder-style gestures:
+swipe left to discard, swipe right to keep.
 
-Bundle ID `com.kevinknear.photonook` · iOS 17+ · SwiftUI · inglés y español.
+`com.kevinknear.photonook` · iOS 17+ · SwiftUI · English and Spanish
 
-## Qué incluye
+## Features
 
-- **Mazo de cartas** con la foto actual y un vistazo de la siguiente, rotación y sellos
-  "DELETE" / "KEEP" durante el arrastre.
-- **Contadores**: progreso "X de Y", conservadas, descartadas y espacio recuperado en MB/GB.
-- **Deshacer** el último swipe.
-- **Cuatro pestañas navegables**: `Explorar` (inicio), `Revisar` (el mazo), `Por borrar`
-  (con badge del pendiente) y `Ajustes`.
-- **Explorar**: catálogo de la galería en tarjetas con portada y recuento, agrupadas en:
-  - *Por tipo* — capturas, vídeos, selfies, ráfagas, Live Photos, panorámicas, retratos,
-    cámara lenta, time-lapse, GIFs, favoritas. Salen de los álbumes inteligentes de iOS.
-  - *Por app* — WhatsApp, Instagram, Telegram… detectadas por el nombre del álbum que crean.
-  - *Mis álbumes* — los que creaste tú.
-  - *Reciente / Por año / Por mes* — hoy, esta semana, este mes, cada año y los últimos 12 meses.
-- **Bandeja "Por borrar"** (staging): todo lo descartado con swipe izquierda espera en una rejilla.
-  Borras el lote entero de golpe con **una única alerta de iOS**. Sobre cada foto tienes tres salidas:
-  - **Tocar** para desmarcarla → se queda como conservada (decisión tomada).
-  - **Mantener pulsada → Devolver al mazo** → vuelve al final del carrusel, sin decisión. Útil
-    cuando no estás seguro y quieres verla otra vez al final.
-  - Dejarla marcada → se borra con el lote.
+**Card deck.** The current photo with a peek at the next one, tilt on drag, and "DELETE" / "KEEP"
+stamps that fade in as you commit to a direction. Photos are shown whole rather than cropped —
+you can't decide what to delete from a crop.
 
-  El botón `Devolver al mazo` de la barra inferior hace lo mismo en bloque con todas las desmarcadas.
-- **Tres modos de borrado** (elegibles en Filtros):
-  - `Al final de la sesión` (por defecto) — nada se borra hasta que revises la bandeja.
-  - `Por lotes` — dispara el borrado automáticamente cada N descartes (ajustable, 5-100).
-  - `En cada swipe` — borra al instante, con una alerta del sistema por foto.
+**Explore.** The library laid out as cover cards with counts, grouped by:
 
-> Nada se borra de forma permanente: todo va a **Eliminados recientemente** en la app Fotos, donde permanece 30 días.
+- *By type* — screenshots, videos, selfies, bursts, Live Photos, panoramas, portraits, slo-mo,
+  time-lapse, GIFs, favorites. These come from the smart albums iOS maintains.
+- *By app* — WhatsApp, Instagram, Telegram… detected from the album names those apps create.
+- *My albums* — the ones you made yourself.
+- *Recent / By year / By month* — today, this week, this month, each year, and the last 12 months.
 
-### Sobre la alerta de confirmación de iOS
+**The "To delete" tray.** Everything you swipe left lands in a staging grid instead of being
+deleted immediately. Each photo has three exits:
 
-Cada llamada a `PHAssetChangeRequest.deleteAssets` provoca una alerta del sistema
-("Allow PhotoNook to delete this photo?"). **No se puede suprimir**: no hay parámetro, entitlement
-ni nivel de permiso que la desactive, y no depende de haber concedido acceso completo a la galería.
-Es una protección deliberada de iOS para que ninguna app pueda vaciar la galería sin intervención
-del usuario. La única palanca disponible es reducir el número de llamadas agrupando las fotos en
-un solo `deleteAssets`, que es exactamente lo que hacen los modos por lotes.
+- **Tap** to unmark it → it counts as kept (decision made).
+- **Press and hold → Send back to the deck** → returns to the end of the carousel with no decision
+  recorded. For when you're unsure and want to see it again later.
+- Leave it marked → it goes with the batch.
 
-## Estructura
+Deleting the batch takes **a single iOS confirmation** for the whole thing.
+
+**Counters.** Live progress ("X of Y"), kept, discarded, and space recovered in MB/GB.
+
+**Undo** the last swipe.
+
+**Three deletion modes** (Settings tab):
+
+- `End of session` (default) — nothing is deleted until you review the tray.
+- `In batches` — fires automatically every N discards (adjustable, 5–100).
+- `Every swipe` — deletes immediately, with one system alert per photo.
+
+**Cozy design.** Warm paper palette in light and dark mode, rounded typography, Dynamic Type
+support, and VoiceOver labels on the icon-only controls.
+
+> Nothing is deleted permanently. Everything goes to **Recently Deleted** in the Photos app,
+> where iOS keeps it for 30 days.
+
+### About the iOS confirmation alert
+
+Every call to `PHAssetChangeRequest.deleteAssets` triggers a system alert ("Allow PhotoNook to
+delete this photo?"). **It cannot be suppressed** — there is no parameter, entitlement, or
+permission level that disables it, and it has nothing to do with granting full library access.
+It is a deliberate iOS protection so no app can empty your gallery without you intervening.
+
+The only available lever is to make fewer calls by grouping photos into a single `deleteAssets`,
+which is exactly what the batch modes do. That constraint is the reason the tray exists.
+
+## Project structure
 
 ```
+Config/
+  Shared.xcconfig            committed; optionally includes Local.xcconfig
+  Local.xcconfig             gitignored; your DEVELOPMENT_TEAM
+
 Sources/
-  PhotoNookApp.swift          punto de entrada
-  Models/FilterOptions.swift   fuentes, rangos de fecha, orden
-  Services/PhotoLibraryService.swift   único punto de contacto con el framework Photos
-  ViewModels/SwipeViewModel.swift      estado, undo, contadores, borrado
+  PhotoNookApp.swift         entry point, system bar appearance
+  Theme.swift                palette, metrics, typography, Dynamic Type mapping
+  Models/
+    FilterOptions.swift      photo sources, date ranges, sort order, catalog types
+  Services/
+    PhotoLibraryService.swift  the only place that touches the Photos framework
+  ViewModels/
+    SwipeViewModel.swift     session state, undo, counters, deletion
   Views/
-    RootView.swift             enrutado por fase + permisos + resumen
-    SwipeDeckView.swift        mazo, gesto de arrastre, barra de botones, háptica
-    PhotoCardView.swift        una carta (imagen + metadata)
-    StatsBar.swift             progreso y espacio
-    FilterView.swift           hoja de filtros y modo de borrado
+    RootView.swift           tabs, permissions, empty state, summary
+    ExploreView.swift        section catalog with cover thumbnails
+    SwipeDeckView.swift      the deck, drag gesture, action bar, haptics
+    PhotoCardView.swift      a single card (photo + metadata)
+    TrashTrayView.swift      staging grid and batch deletion
+    StatsBar.swift           progress and space recovered
+    FilterView.swift         settings: date, order, appearance, deletion mode
+
+Scripts/
+  make-icon.sh               renders the 1024×1024 app icon
+  reset-demo.sh              generates and loads test photos into the simulator
 ```
 
-## Abrir y ejecutar
+The architecture is MVVM: views hold no data logic, the view model owns session state, and a
+single service encapsulates every `PHAsset` call.
 
-El proyecto ya está montado: `PhotoNook.xcodeproj`. Solo tienes que abrirlo.
+## Getting started
 
 ```bash
-open ~/Documents/SwiftApps/PhotoNook/PhotoNook.xcodeproj
+open PhotoNook.xcodeproj
 ```
 
-Ya viene configurado con deployment target iOS 17.0, el permiso `NSPhotoLibraryUsageDescription`
-en `Sources/Info.plist`, bundle ID `com.kev.photoswipe` y un scheme llamado `PhotoNook`.
+The project is fully configured: iOS 17.0 deployment target, `NSPhotoLibraryUsageDescription`
+in `Sources/Info.plist`, asset catalog with the app icon, privacy manifest, and string catalogs.
 
-### En el simulador (rápido, para ver la interfaz)
+### On the simulator
 
-1. En la barra superior de Xcode, junto al nombre del scheme `PhotoNook`, abre el selector de
-   destino y elige cualquier **iPhone 16 / 17** de la lista de simuladores.
-2. Pulsa ▶︎ (o `⌘R`).
-3. El simulador arranca con la galería casi vacía. **Arrastra imágenes desde el Finder
-   directamente a la ventana del simulador** para que se guarden en Fotos y tengas material que
-   swipear. Con 15-20 imágenes ya se prueba bien.
-4. Acepta el diálogo de permiso de fotos cuando aparezca.
+1. Pick any iPhone simulator from the destination selector at the top of Xcode.
+2. Press ▶︎ (`⌘R`).
+3. The simulator starts with an almost empty gallery. Generate test photos:
 
-El borrado funciona en el simulador (con su alerta de confirmación incluida), así que puedes
-validar el flujo completo antes de tocar tu galería real.
+   ```bash
+   chmod +x Scripts/reset-demo.sh
+   ./Scripts/reset-demo.sh 60
+   ```
 
-### Recuperar / regenerar fotos de prueba
+   This renders 60 numbered images in mixed formats (screenshot-tall, landscape, square) and
+   loads them into Photos with `simctl addmedia`. The numbering lets you verify exactly which
+   photos were deleted and which were kept. Add `--erase` to wipe the simulator first.
 
-Si te quedaste sin fotos en el simulador, tienes tres caminos:
+   You can also just drag images from Finder onto the simulator window.
 
-**1. Recuperar las que borraste** (lo más rápido — siguen ahí 30 días)
-   App Fotos del simulador → Álbumes → Eliminados recientemente → Seleccionar → Recuperar todo.
+4. Accept the photo permission dialog.
 
-**2. Generar fotos sintéticas** (lo mejor para probar en serio)
+Deletion works on the simulator, confirmation alert included, so you can validate the whole flow
+before touching a real library. If you run out of photos, they're recoverable: Photos →
+Albums → Recently Deleted → Select → Recover All.
 
-```bash
-cd ~/Documents/SwiftApps/PhotoNook
-chmod +x Scripts/reset-demo.sh
-./Scripts/reset-demo.sh 60
-```
+> `simctl addmedia` does not tag images with the `photoScreenshot` subtype, so the Screenshots
+> section won't find them. To test that one, take real screenshots inside the simulator with `⌘S`.
 
-Crea 60 imágenes numeradas con formatos variados (vertical tipo captura, horizontal, cuadrada) y
-las carga en Fotos con `simctl addmedia`. Al ir numeradas sabes exactamente cuál borraste.
-Añade `--erase` para resetear el simulador entero antes.
+### On a physical device
 
-**3. Arrastrar imágenes** desde el Finder a la ventana del simulador.
+1. Create `Config/Local.xcconfig` with your Team ID (see below).
+2. Connect your iPhone and enable Settings → Privacy & Security → **Developer Mode**, then restart.
+3. Select your device in Xcode and press ▶︎.
+4. The first launch will be blocked. Go to Settings → General → VPN & Device Management → your
+   certificate → **Trust**, then run again.
 
-> `simctl addmedia` no marca las imágenes con el subtipo `photoScreenshot`, así que el filtro
-> «Capturas de pantalla» no las detectará. Para probar ese filtro, haz capturas reales dentro del
-> simulador con `⌘S`.
+With a free Apple ID the app expires after 7 days; re-run from Xcode to renew it.
 
-### En tu iPhone (la prueba de verdad)
+### Code signing
 
-1. **Firma**: selecciona el proyecto en el navegador → target `PhotoNook` →
-   **Signing & Capabilities** → marca *Automatically manage signing* y en *Team* elige tu Apple ID.
-   Si no aparece ninguno: Xcode → Settings → Accounts → `+` → añade tu Apple ID (la cuenta gratuita sirve).
-2. **Modo desarrollador en el iPhone**: conecta el cable, y en el teléfono ve a
-   Ajustes → Privacidad y seguridad → **Modo desarrollador** → activar y reiniciar.
-3. Selecciona tu iPhone como destino en Xcode y pulsa ▶︎.
-4. La primera vez el iPhone rechazará la app. Ve a
-   Ajustes → General → VPN y gestión de dispositivos → tu certificado → **Confiar**.
+`DEVELOPMENT_TEAM` is deliberately **not** in the `.xcodeproj`. It lives in
+`Config/Local.xcconfig`, which is gitignored and never reaches the repository.
 
-Con cuenta gratuita la app caduca a los 7 días; basta con volver a ejecutarla desde Xcode.
-
-### Si Xcode se queja
-
-- *"Signing for PhotoNook requires a development team"* → solo aparece al compilar para
-  dispositivo físico. Para simulador puedes ignorarlo; para iPhone, haz el paso 1 de arriba.
-- *"Cannot find 'X' in scope"* → algún archivo no está en el target. Selecciónalo en el navegador
-  y comprueba en el inspector de la derecha que `PhotoNook` está marcado en *Target Membership*.
-- Errores de concurrencia (`Sendable`) → ve a build settings del target y confirma que
-  **Swift Language Version** es **5**, no 6.
-
-## Firma (identidad de desarrollador)
-
-El `DEVELOPMENT_TEAM` no está en el `.xcodeproj`: vive en `Config/Local.xcconfig`, que está
-en `.gitignore` y por tanto nunca se sube al repositorio.
-
-Si clonas el proyecto en otro Mac, crea ese archivo con tu propio Team ID:
+Create that file with your own Team ID:
 
 ```
 DEVELOPMENT_TEAM = XXXXXXXXXX
 ```
 
-Lo encuentras en Xcode → Settings → Accounts → tu Apple ID (entre paréntesis), o en
+Find it in Xcode → Settings → Accounts → your Apple ID (in parentheses), or at
 developer.apple.com → Membership.
 
-Sin ese archivo el proyecto compila igualmente para el **simulador**; solo hace falta para
-firmar en un dispositivo físico o para archivar. `Config/Shared.xcconfig` lo incluye con
-`#include?`, una inclusión opcional que no falla si el archivo no existe.
+Without that file the project still builds for the **simulator** — it's only needed to sign for a
+device or to archive. `Config/Shared.xcconfig` pulls it in with `#include?`, an optional include
+that doesn't fail when the file is missing.
 
-> **Importante:** si cambias el equipo desde Xcode → Signing & Capabilities, Xcode volverá a
-> escribir `DEVELOPMENT_TEAM` dentro del `.xcodeproj`. Si pasa, bórralo de ahí y ponlo en
-> `Local.xcconfig`, o acabará en el repositorio.
+> **Watch out:** if you change the team from Xcode → Signing & Capabilities, Xcode writes
+> `DEVELOPMENT_TEAM` back into the `.xcodeproj`. If you see it there, remove it and put it in
+> `Local.xcconfig` instead, or it ends up committed. A `git diff` before each commit catches it.
 
-## Idiomas
+### If Xcode complains
 
-Inglés (base) y español, con String Catalogs. iOS elige según el ajuste del teléfono.
+- *"Signing for PhotoNook requires a development team"* → only when building for a device.
+  Create `Config/Local.xcconfig`.
+- *"Cannot find 'X' in scope"* → a file isn't in the target. Select it and check
+  *Target Membership* in the inspector.
+- Concurrency (`Sendable`) errors → confirm **Swift Language Version** is **5**, not 6, in the
+  target's build settings.
 
-- `Sources/Localizable.xcstrings` — la interfaz. El idioma fuente es el inglés: las claves son
-  el propio texto en inglés, y el español va como traducción.
-- `Sources/InfoPlist.xcstrings` — el nombre visible y el texto del permiso de Fotos.
+## Localization
 
-Para añadir un idioma, abre el catálogo en Xcode y pulsa `+` junto a la lista de idiomas; Xcode
-extrae las claves del código automáticamente en cada compilación.
+English (source) and Spanish, via String Catalogs. iOS picks based on the device language.
 
-Dos reglas al tocar el código:
+- `Sources/Localizable.xcstrings` — the interface. English is the source language: keys are the
+  English text itself, Spanish is stored as a translation.
+- `Sources/InfoPlist.xcstrings` — the display name and the Photos permission prompt.
 
-- `Text("literal")` se localiza solo. `Text(variable)` **no**: usa `String(localized: "…")` al
-  construir esa variable.
-- En un ternario dentro de `Text`/`Button`, envuelve cada rama en `String(localized:)`. Con dos
-  literales sueltos, Swift puede elegir la sobrecarga que no localiza.
+To add a language, open the catalog in Xcode and press `+` next to the language list. Xcode
+extracts keys from the code on every build.
 
-## Publicar en el App Store
+Two rules when editing code:
 
-Requiere el Apple Developer Program ($99/año). Lo que ya está preparado en el repo:
+- `Text("literal")` localizes automatically. `Text(variable)` does **not** — build that variable
+  with `String(localized: "…")`.
+- Inside a ternary in `Text`/`Button`, wrap each branch in `String(localized:)`. With two bare
+  literals, Swift may pick the non-localizing overload.
 
-- **Icono** — `Scripts/make-icon.sh` genera `Sources/Assets.xcassets/AppIcon.appiconset/icon-1024.png`
-  (1024×1024, sin transparencia). Ejecútalo una vez:
+## Accessibility
 
-  ```bash
-  chmod +x Scripts/make-icon.sh
-  ./Scripts/make-icon.sh
-  ```
+- **Dynamic Type.** `Font.cozy(_:_:)` maps point sizes onto the system's semantic text styles, so
+  everything scales with the user's text size setting. `Font.fixed(_:_:)` is the deliberate
+  opt-out, used only for glyphs and badges living inside fixed-size frames. Capped at
+  `.accessibility2`, above which the deck and grid stop fitting on screen.
+- **VoiceOver.** The icon-only deck controls carry explicit accessibility labels.
 
-  La paleta está en las llamadas a `color(0x…)` dentro del script; retoca y vuelve a ejecutar.
+## Shipping to the App Store
 
-- **Privacy manifest** — `Sources/PrivacyInfo.xcprivacy`, ya incluido en la fase de recursos.
-  Declara `NSPrivacyAccessedAPICategoryUserDefaults` con motivo `CA92.1`, obligatorio porque
-  `@AppStorage` usa `UserDefaults`, que está en la lista de *Required Reason APIs* de Apple.
+Requires the Apple Developer Program ($99/year). Already prepared in this repo:
 
-- **Política de privacidad** — borrador en `PRIVACY.md`. Hay que publicarlo en una URL pública
-  (GitHub Pages, Notion o similar) y poner esa dirección en App Store Connect.
+- **App icon** — `Sources/Assets.xcassets/AppIcon.appiconset/icon-1024.png` (1024×1024, no alpha).
+  `Scripts/make-icon.sh` renders an alternative programmatically; the palette lives in the
+  `color(0x…)` calls inside the script.
+- **Privacy manifest** — `Sources/PrivacyInfo.xcprivacy`, in the resources build phase. Declares
+  `NSPrivacyAccessedAPICategoryUserDefaults` with reason `CA92.1`, required because `@AppStorage`
+  uses `UserDefaults`, which is on Apple's Required Reason API list.
+- **Export compliance** — `ITSAppUsesNonExemptEncryption` is set to `false` in `Info.plist`, so
+  uploads skip the encryption questionnaire.
+- **Privacy policy** — `PRIVACY-EN.md` and `PRIVACY.md`. Both need to be published at public URLs
+  and referenced in App Store Connect.
+- **Store copy** — `STORE.md` has the name, subtitle, description, keywords, and promotional text
+  in both languages, within Apple's character limits.
 
-Falta por hacer fuera del repo: registrar el Bundle ID, crear la ficha en App Store Connect
-(nombre, descripción, palabras clave, categoría Utilidades, clasificación por edad), subir
-entre 2 y 8 capturas por tamaño de dispositivo tomadas de pantallas reales, rellenar las
-App Privacy Labels como *Data Not Collected*, y hacer Archive → Distribute App desde Xcode.
+Still to do outside the repo: register the Bundle ID, create the App Store Connect record, upload
+2–8 screenshots per device size taken from real screens, fill in App Privacy Labels as
+*Data Not Collected*, and Archive → Distribute App from Xcode.
 
-Desde el 28 de abril de 2026 hay que compilar con el SDK de iOS 26 o superior, es decir
-Xcode 26 o superior.
+Since April 28, 2026, builds must use the iOS 26 SDK or later, which means Xcode 26 or later.
 
-## Notas técnicas
+## Technical notes
 
-- Swift 6 / concurrencia estricta: `PHAsset` no es `Sendable`, así que el fetch se hace en el `MainActor` y los cálculos de tamaño (que sí son lentos) cruzan a background pasando solo `localIdentifier` como `String`.
-- El tamaño en disco se obtiene con `PHAssetResource.value(forKey: "fileSize")`. Es la vía habitual y aceptada en la App Store, pero es lenta: se calcula en segundo plano y los MB aparecen progresivamente.
-- `PHCachingImageManager` precarga las 6 fotos siguientes para que el mazo no parpadee.
-- Cada llamada a `PHAssetChangeRequest.deleteAssets` genera una alerta del sistema. No hay forma de suprimirla: es por diseño de iOS. De ahí el modo por lotes.
+- **Swift 6 strict concurrency.** `PHAsset` is not `Sendable`, so fetching runs on the `MainActor`.
+  File size computation — the genuinely slow part — crosses to a background task passing only
+  `localIdentifier` strings, then merges results back on the main actor.
+- **File size** comes from `PHAssetResource.value(forKey: "fileSize")`. It's the common approach
+  and widely accepted on the App Store, but it isn't public API and it's slow, so sizes are
+  computed in the background and appear progressively.
+- **`PHCachingImageManager`** prefetches the next 6 photos so the deck doesn't flicker.
+- **Requeued photos are appended** to the end of the asset array rather than moved back to their
+  original index. The deck advances by index and the undo history stores indices, so reordering
+  would invalidate both. Appending is harmless — the original position is already behind you.
 
-## Ideas para v2
+## Ideas for v2
 
-- Modo "carpetas": mover a un álbum en vez de borrar (swipe arriba).
-- Detección de duplicados / fotos casi idénticas con `PHAsset` + hashing perceptual.
-- Sesiones reanudables guardando los `localIdentifier` ya revisados.
+- "Move to album" mode: swipe up to file a photo instead of deleting it.
+- Duplicate and near-duplicate detection via perceptual hashing.
+- Resumable sessions by persisting the `localIdentifier`s already reviewed.
+- Support for `.limited` photo access, which currently works but reports confusing counts.
+
+## License
+
+All rights reserved.
