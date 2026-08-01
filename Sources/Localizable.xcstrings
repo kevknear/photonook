@@ -919,7 +919,12 @@
       }
     },
     "PhotoNook. Clean and cozy." : {
-
+      "comment" : "Etiqueta de accesibilidad de la pantalla de arranque.",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook. Limpia y acogedora." }
+        }
+      }
     },
     "Photos you discard with a left swipe wait here before being deleted." : {
       "localizations" : {

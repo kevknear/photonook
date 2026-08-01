@@ -83,7 +83,7 @@ Sources/
     FilterView.swift         settings: date, order, appearance, deletion mode
 
 Scripts/
-  make-icon.sh               renders the 1024×1024 app icon
+  make-icon.sh               renders an alternative icon (writes icon-generado.png)
   reset-demo.sh              generates and loads test photos into the simulator
 ```
 
@@ -197,8 +197,9 @@ Two rules when editing code:
 Requires the Apple Developer Program ($99/year). Already prepared in this repo:
 
 - **App icon** — `Sources/Assets.xcassets/AppIcon.appiconset/icon-1024.png` (1024×1024, no alpha).
-  `Scripts/make-icon.sh` renders an alternative programmatically; the palette lives in the
-  `color(0x…)` calls inside the script.
+  `Scripts/make-icon.sh` renders a purely programmatic alternative into `icon-generado.png`
+  (it deliberately does not overwrite the one in use); the palette lives in the `color(0x…)`
+  calls inside the script.
 - **Privacy manifest** — `Sources/PrivacyInfo.xcprivacy`, in the resources build phase. Declares
   `NSPrivacyAccessedAPICategoryUserDefaults` with reason `CA92.1`, required because `@AppStorage`
   uses `UserDefaults`, which is on Apple's Required Reason API list.
