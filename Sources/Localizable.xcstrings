@@ -1,0 +1,909 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld items" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld elementos" }
+        }
+      }
+    },
+    "%lld moved to Recently Deleted." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld enviadas a «Eliminados recientemente»." }
+        }
+      }
+    },
+    "%lld photos waiting in the tray · %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld fotos esperando en el lote · %@" }
+        }
+      }
+    },
+    "%lld returned to the end of the deck." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld devueltas al final del mazo." }
+        }
+      }
+    },
+    "%lld unmarked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld sin marcar" }
+        }
+      }
+    },
+    "1 item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "1 elemento" }
+        }
+      }
+    },
+    "Active" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Activa" }
+        }
+      }
+    },
+    "Active section" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sección activa" }
+        }
+      }
+    },
+    "Age" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Antigüedad" }
+        }
+      }
+    },
+    "All" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Todas" }
+        }
+      }
+    },
+    "All done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sesión terminada" }
+        }
+      }
+    },
+    "All Photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Todas las fotos" }
+        }
+      }
+    },
+    "Albums created by other apps" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Álbumes creados por otras aplicaciones" }
+        }
+      }
+    },
+    "Any date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cualquier fecha" }
+        }
+      }
+    },
+    "Appearance" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Apariencia" }
+        }
+      }
+    },
+    "Apply and review" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplicar y revisar" }
+        }
+      }
+    },
+    "Applying reloads the deck and resets the counters." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplicar recarga el mazo y reinicia los contadores." }
+        }
+      }
+    },
+    "Back to deck" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Devolver al mazo" }
+        }
+      }
+    },
+    "Batch size" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tamaño del lote" }
+        }
+      }
+    },
+    "Bursts" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ráfagas" }
+        }
+      }
+    },
+    "By app" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por app" }
+        }
+      }
+    },
+    "By month" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por mes" }
+        }
+      }
+    },
+    "By type" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por tipo" }
+        }
+      }
+    },
+    "By year" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por año" }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cancelar" }
+        }
+      }
+    },
+    "Change settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cambiar ajustes" }
+        }
+      }
+    },
+    "Check again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Volver a comprobar" }
+        }
+      }
+    },
+    "Collects discarded photos and deletes them every N: one alert per batch." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Acumula las descartadas y las borra cada N: una sola alerta por lote." }
+        }
+      }
+    },
+    "Couldn't finish deleting: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "No se pudo completar el borrado: %@" }
+        }
+      }
+    },
+    "Dark" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Oscuro" }
+        }
+      }
+    },
+    "Date and order" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fecha y orden" }
+        }
+      }
+    },
+    "DELETE" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "BORRAR" }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrar" }
+        }
+      }
+    },
+    "Delete %lld at once" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrar %lld de golpe" }
+        }
+      }
+    },
+    "Deletion cancelled." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrado cancelado." }
+        }
+      }
+    },
+    "Deletion cancelled. They're still marked." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrado cancelado. Siguen marcadas." }
+        }
+      }
+    },
+    "Deletion mode" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Modo de borrado" }
+        }
+      }
+    },
+    "Discard this photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Descartar esta foto" }
+        }
+      }
+    },
+    "Keep this photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conservar esta foto" }
+        }
+      }
+    },
+    "Undo last swipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deshacer el último swipe" }
+        }
+      }
+    },
+    "Discard the tray and reload" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Descartar el lote y recargar" }
+        }
+      }
+    },
+    "Discarded" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Descartadas" }
+        }
+      }
+    },
+    "Empty gallery" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Galería vacía" }
+        }
+      }
+    },
+    "End of session" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Al final de la sesión" }
+        }
+      }
+    },
+    "Every swipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "En cada swipe" }
+        }
+      }
+    },
+    "Explore" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Explorar" }
+        }
+      }
+    },
+    "Favorite" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Favorita" }
+        }
+      }
+    },
+    "Favorites" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Favoritas" }
+        }
+      }
+    },
+    "Finding photos…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Buscando fotos…" }
+        }
+      }
+    },
+    "GIFs" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "GIFs" }
+        }
+      }
+    },
+    "Go through this section again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Repasar esta sección otra vez" }
+        }
+      }
+    },
+    "Go to review" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ir a revisar" }
+        }
+      }
+    },
+    "Go to the tray and delete them first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ir al lote y borrarlas primero" }
+        }
+      }
+    },
+    "Include videos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Incluir vídeos" }
+        }
+      }
+    },
+    "In batches" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por lotes" }
+        }
+      }
+    },
+    "iOS shows a confirmation alert for every delete operation and there's no way to turn it off. Grouping photos into batches is the only way to reduce them." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "iOS muestra una alerta de confirmación por cada operación de borrado y no existe forma de desactivarla. Agrupar en lotes es la única manera de reducirlas." }
+        }
+      }
+    },
+    "KEEP" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "GUARDAR" }
+        }
+      }
+    },
+    "Keep and remove from tray" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conservar y sacar del lote" }
+        }
+      }
+    },
+    "Kept" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conservadas" }
+        }
+      }
+    },
+    "Light" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Claro" }
+        }
+      }
+    },
+    "Live Photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Live Photos" }
+        }
+      }
+    },
+    "Mark for deletion" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Marcar para borrar" }
+        }
+      }
+    },
+    "My albums" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mis álbumes" }
+        }
+      }
+    },
+    "Newest first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Más recientes primero" }
+        }
+      }
+    },
+    "Nice work — your gallery is lighter now." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Buen trabajo dejando la galería más ligera." }
+        }
+      }
+    },
+    "No date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sin fecha" }
+        }
+      }
+    },
+    "No photos or videos found on this device." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "No encontré fotos ni vídeos en este dispositivo." }
+        }
+      }
+    },
+    "None" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ninguna" }
+        }
+      }
+    },
+    "Not deleted. You can try again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "No se borró. Puedes volver a intentarlo." }
+        }
+      }
+    },
+    "Nothing is deleted until you review the tray. A single alert for everything." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nada se borra hasta que revises el lote. Una única alerta para todo." }
+        }
+      }
+    },
+    "Nothing selected" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nada seleccionado" }
+        }
+      }
+    },
+    "Nothing to review" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nada por revisar" }
+        }
+      }
+    },
+    "Nothing to undo yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nada que deshacer todavía." }
+        }
+      }
+    },
+    "Older than a year" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Más de 1 año" }
+        }
+      }
+    },
+    "Oldest first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Más antiguas primero" }
+        }
+      }
+    },
+    "One iOS confirmation for the whole batch. Unmarked photos count as kept; press and hold a photo to send it back to the deck." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Una sola confirmación de iOS para todo el lote. Las sin marcar quedan como conservadas; mantén pulsada una foto para devolverla al mazo." }
+        }
+      }
+    },
+    "One system alert per photo. That's iOS behavior and it can't be turned off." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Una alerta del sistema por cada foto. Es el comportamiento que impone iOS y no se puede desactivar." }
+        }
+      }
+    },
+    "Open Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Abrir Ajustes" }
+        }
+      }
+    },
+    "Order" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Orden" }
+        }
+      }
+    },
+    "Panoramas" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Panorámicas" }
+        }
+      }
+    },
+    "Past 6 months" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Últimos 6 meses" }
+        }
+      }
+    },
+    "Past month" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Último mes" }
+        }
+      }
+    },
+    "Past year" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Último año" }
+        }
+      }
+    },
+    "PhotoNook needs your photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook necesita ver tus fotos" }
+        }
+      }
+    },
+    "Pick another section" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Elegir otra sección" }
+        }
+      }
+    },
+    "Photos you discard with a left swipe wait here before being deleted." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Las fotos que descartes con un swipe a la izquierda esperarán aquí antes de borrarse." }
+        }
+      }
+    },
+    "Portraits" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Retratos" }
+        }
+      }
+    },
+    "Protect favorites" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Proteger favoritas" }
+        }
+      }
+    },
+    "Protected favorites never show up in the deck." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Al proteger favoritas, no aparecerán en el mazo." }
+        }
+      }
+    },
+    "Recent" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Reciente" }
+        }
+      }
+    },
+    "Recently Added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Añadidas hace poco" }
+        }
+      }
+    },
+    "Reloading now empties the tray. Those photos stay in your gallery — nothing gets deleted." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Si recargas ahora, esas fotos salen del lote y seguirán en tu galería. No se borra nada." }
+        }
+      }
+    },
+    "Returned to the end of the deck." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Devuelta al final del mazo." }
+        }
+      }
+    },
+    "Review" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Revisar" }
+        }
+      }
+    },
+    "Review %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Revisar %lld" }
+        }
+      }
+    },
+    "Review and delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Revisar y borrar" }
+        }
+      }
+    },
+    "Screenshot" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Captura" }
+        }
+      }
+    },
+    "Screenshots" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Capturas" }
+        }
+      }
+    },
+    "Selfies" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Selfies" }
+        }
+      }
+    },
+    "Send back to the deck" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Devolver al mazo" }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajustes" }
+        }
+      }
+    },
+    "Slo-mo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cámara lenta" }
+        }
+      }
+    },
+    "Smart albums iOS keeps up to date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Álbumes que iOS mantiene solo" }
+        }
+      }
+    },
+    "Something went wrong" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Algo salió mal" }
+        }
+      }
+    },
+    "Sorting your gallery…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ordenando tu galería…" }
+        }
+      }
+    },
+    "Space freed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Espacio recuperado" }
+        }
+      }
+    },
+    "Start reviewing photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ir a revisar fotos" }
+        }
+      }
+    },
+    "Switch section anyway" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cambiar de sección igualmente" }
+        }
+      }
+    },
+    "Switching sections empties the tray. Those photos stay in your gallery — nothing gets deleted." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Al cambiar de sección esas fotos salen del lote y seguirán en tu galería. No se borra nada." }
+        }
+      }
+    },
+    "System" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sistema" }
+        }
+      }
+    },
+    "“System” follows your iPhone's Display & Brightness setting. Changes apply instantly and are remembered." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "«Sistema» sigue el ajuste de Pantalla y brillo del iPhone. El cambio se aplica al instante y se recuerda." }
+        }
+      }
+    },
+    "Tap to change section" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tocar para cambiar de sección" }
+        }
+      }
+    },
+    "That photo is already in Recently Deleted. Recover it from the Photos app." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Esa foto ya está en «Eliminados recientemente». Recupérala desde la app Fotos." }
+        }
+      }
+    },
+    "The last 12 months with photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Los últimos 12 meses con fotos" }
+        }
+      }
+    },
+    "The tray is empty" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "El lote está vacío" }
+        }
+      }
+    },
+    "This month" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Este mes" }
+        }
+      }
+    },
+    "This section is already limited by date, so the age filter doesn't apply." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Esta sección ya está acotada por fecha, así que el filtro de antigüedad no aplica." }
+        }
+      }
+    },
+    "This week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Esta semana" }
+        }
+      }
+    },
+    "Time-lapse" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Time-lapse" }
+        }
+      }
+    },
+    "To delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Por borrar" }
+        }
+      }
+    },
+    "Today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hoy" }
+        }
+      }
+    },
+    "Untitled album" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Álbum sin título" }
+        }
+      }
+    },
+    "Videos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vídeos" }
+        }
+      }
+    },
+    "Without read and write access it can't show you anything or delete what you discard. You can grant it in Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sin permiso de lectura y escritura no puedo mostrarte nada ni borrar lo que descartes. Puedes concederlo en Ajustes." }
+        }
+      }
+    },
+    "You have %lld photos still in the tray" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tienes %lld fotos en el lote sin borrar" }
+        }
+      }
+    },
+    "Your whole library" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Toda la galería" }
+        }
+      }
+    },
+    "“%@” has no photos matching your current settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "«%@» no tiene fotos que coincidan con los ajustes actuales." }
+        }
+      }
+    },
+    "of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "de %lld" }
+        }
+      }
+    },
+    "of %lld marked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "de %lld marcadas" }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

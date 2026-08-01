@@ -1,0 +1,48 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Nombre visible bajo el icono en la pantalla de inicio.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook" }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Nombre corto del bundle.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook" }
+        }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "comment" : "Diálogo del sistema al pedir acceso a Fotos.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PhotoNook needs access to your photos so it can show them to you and delete the ones you swipe away."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PhotoNook necesita acceso a tus fotos para mostrarlas y borrar las que descartes con un swipe."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

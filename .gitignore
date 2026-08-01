@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Xcode: estado local del usuario, nunca se comparte
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Builds
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Credenciales — que nunca acaben en el repo
+*.p12
+*.mobileprovision
+*.cer
+
+# Identidad de firma: personal de cada máquina, no se comparte
+Config/Local.xcconfig

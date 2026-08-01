@@ -1,0 +1,7 @@
+// Configuración compartida del proyecto. Este archivo SÍ se versiona.
+//
+// La identidad de firma es personal de cada máquina, así que vive en Local.xcconfig,
+// que está en .gitignore. El `#include?` (con interrogación) es una inclusión opcional:
+// si el archivo no existe, el build sigue adelante en vez de fallar. Eso permite que
+// alguien clone el repo y compile para el simulador sin tener tu equipo de desarrollo.
+#include? "Local.xcconfig"

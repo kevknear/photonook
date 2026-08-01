@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- La app no rastrea al usuario ni contacta con dominios de seguimiento. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+
+	<!-- No se recoge ningún dato: todo el procesamiento ocurre en el dispositivo. -->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+
+	<!-- APIs con motivo obligatorio que usa la app. -->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<!--
+			  UserDefaults, a través de @AppStorage, para recordar la preferencia
+			  de apariencia (Sistema / Claro / Oscuro).
+			  CA92.1 = acceso únicamente a datos de la propia app, sin compartirlos.
+			-->
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

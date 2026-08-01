@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAAAAAAAAAAAAAAAAAAA0101 /* PhotoNookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0201 /* PhotoNookApp.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0102 /* FilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0202 /* FilterOptions.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0103 /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0203 /* PhotoLibraryService.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0104 /* SwipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0204 /* SwipeViewModel.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0105 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0205 /* RootView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0106 /* SwipeDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0206 /* SwipeDeckView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0107 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0207 /* PhotoCardView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0108 /* StatsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0208 /* StatsBar.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0109 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0209 /* FilterView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0110 /* TrashTrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */; };
+		AAAAAAAAAAAAAAAAAAAA0121 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */; };
+		AAAAAAAAAAAAAAAAAAAA0122 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */; };
+		AAAAAAAAAAAAAAAAAAAA0123 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAAAAAAAAAAAAAAAAAAA0201 /* PhotoNookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNookApp.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0202 /* FilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptions.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0203 /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0204 /* SwipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewModel.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0205 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0206 /* SwipeDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDeckView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0207 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0208 /* StatsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBar.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0209 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashTrayView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0230 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0231 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0601 /* PhotoNook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoNook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAAAAAAAAAAAAAAAAAAA0702 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAAAAAAAAAAAAAAAAAAA0301 = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0307 /* Config */,
+				AAAAAAAAAAAAAAAAAAAA0302 /* Sources */,
+				AAAAAAAAAAAAAAAAAAAA0310 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0307 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0230 /* Shared.xcconfig */,
+				AAAAAAAAAAAAAAAAAAAA0231 /* Local.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0302 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0201 /* PhotoNookApp.swift */,
+				AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */,
+				AAAAAAAAAAAAAAAAAAAA0303 /* Models */,
+				AAAAAAAAAAAAAAAAAAAA0304 /* Services */,
+				AAAAAAAAAAAAAAAAAAAA0305 /* ViewModels */,
+				AAAAAAAAAAAAAAAAAAAA0306 /* Views */,
+				AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */,
+				AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */,
+				AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */,
+				AAAAAAAAAAAAAAAAAAAA0210 /* Info.plist */,
+				AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0303 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0202 /* FilterOptions.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0304 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0203 /* PhotoLibraryService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0305 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0204 /* SwipeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0306 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0205 /* RootView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0206 /* SwipeDeckView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0207 /* PhotoCardView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0208 /* StatsBar.swift */,
+				AAAAAAAAAAAAAAAAAAAA0209 /* FilterView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AAAAAAAAAAAAAAAAAAAA0310 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0601 /* PhotoNook.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAAAAAAAAAAAAAAAAAAA0501 /* PhotoNook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAAAAAAAAAAAAAAAAAAA0902 /* Build configuration list for PBXNativeTarget "PhotoNook" */;
+			buildPhases = (
+				AAAAAAAAAAAAAAAAAAAA0701 /* Sources */,
+				AAAAAAAAAAAAAAAAAAAA0702 /* Frameworks */,
+				AAAAAAAAAAAAAAAAAAAA0703 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhotoNook;
+			productName = PhotoNook;
+			productReference = AAAAAAAAAAAAAAAAAAAA0601 /* PhotoNook.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAAAAAAAAAAAAAAAAAAA0401 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					AAAAAAAAAAAAAAAAAAAA0501 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = AAAAAAAAAAAAAAAAAAAA0901 /* Build configuration list for PBXProject "PhotoNook" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				es,
+				Base,
+			);
+			mainGroup = AAAAAAAAAAAAAAAAAAAA0301;
+			productRefGroup = AAAAAAAAAAAAAAAAAAAA0310 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAAAAAAAAAAAAAAAAAAA0501 /* PhotoNook */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAAAAAAAAAAAAAAAAAAA0703 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAAAAAAAAAAAAAAAAAAA0120 /* Assets.xcassets in Resources */,
+				AAAAAAAAAAAAAAAAAAAA0121 /* PrivacyInfo.xcprivacy in Resources */,
+				AAAAAAAAAAAAAAAAAAAA0122 /* Localizable.xcstrings in Resources */,
+				AAAAAAAAAAAAAAAAAAAA0123 /* InfoPlist.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAAAAAAAAAAAAAAAAAAA0701 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAAAAAAAAAAAAAAAAAAA0101 /* PhotoNookApp.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0102 /* FilterOptions.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0103 /* PhotoLibraryService.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0104 /* SwipeViewModel.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0105 /* RootView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0106 /* SwipeDeckView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0107 /* PhotoCardView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0108 /* StatsBar.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0109 /* FilterView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0110 /* TrashTrayView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AAAAAAAAAAAAAAAAAAAA0801 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAAAAAAAAAAAAAAAAAAA0230 /* Shared.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AAAAAAAAAAAAAAAAAAAA0802 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAAAAAAAAAAAAAAAAAAA0230 /* Shared.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAAAAAAAAAAAAAAAAAAA0803 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinknear.photonook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AAAAAAAAAAAAAAAAAAAA0804 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinknear.photonook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAAAAAAAAAAAAAAAAAAA0901 /* Build configuration list for PBXProject "PhotoNook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAAAAAAAAAAAAAAAAAAA0801 /* Debug */,
+				AAAAAAAAAAAAAAAAAAAA0802 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAAAAAAAAAAAAAAAAAAA0902 /* Build configuration list for PBXNativeTarget "PhotoNook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAAAAAAAAAAAAAAAAAAA0803 /* Debug */,
+				AAAAAAAAAAAAAAAAAAAA0804 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAAAAAAAAAAAAAAAAAAA0401 /* Project object */;
+}
