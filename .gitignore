@@ -25,3 +25,7 @@ DerivedData/
 
 # Identidad de firma: personal de cada máquina, no se comparte
 Config/Local.xcconfig
+
+# Jekyll (GitHub Pages compila en su servidor, no aquí)
+_site/
+.jekyll-cache/

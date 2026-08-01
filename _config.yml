@@ -1,0 +1,16 @@
+# Configuración de GitHub Pages.
+# Solo sirve para publicar las políticas de privacidad en una URL pública,
+# que es un requisito de App Store Connect. No afecta a la app.
+
+title: PhotoNook
+description: Your gallery, clean and cozy.
+theme: jekyll-theme-cayman
+
+# Nada de esto tiene sentido servirlo como página web.
+exclude:
+  - Sources/
+  - Config/
+  - Scripts/
+  - PhotoNook.xcodeproj/
+  - STORE.md
+  - .gitignore

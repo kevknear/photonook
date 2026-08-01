@@ -1,6 +1,14 @@
+---
+title: Política de privacidad
+description: PhotoNook no recoge ningún dato. Todo se queda en tu dispositivo.
+permalink: /privacidad/
+---
+
 # Política de privacidad de PhotoNook
 
 **Última actualización:** 31 de julio de 2026
+
+*[English version](../privacy/)*
 
 ## Resumen
 

@@ -1,6 +1,14 @@
+---
+title: Privacy Policy
+description: PhotoNook collects nothing. Everything stays on your device.
+permalink: /privacy/
+---
+
 # PhotoNook Privacy Policy
 
 **Last updated:** July 31, 2026
+
+*[Versión en español](../privacidad/)*
 
 ## Summary
 
