@@ -108,7 +108,7 @@ struct ExploreView: View {
     private func header(for group: LibrarySectionGroup) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(group.title)
-                .font(.cozy(19, .bold))
+                .font(.handwritten(30, relativeTo: .title3))
                 .foregroundStyle(Theme.textPrimary)
             if let subtitle = group.subtitle {
                 Text(subtitle)
@@ -135,7 +135,7 @@ struct ExploreView: View {
         VStack(spacing: 18) {
             CozyEmblem(systemImage: "photo.on.rectangle.angled", tint: Theme.textSecondary)
             Text("Empty gallery")
-                .font(.cozy(21, .bold))
+                .font(.handwritten(36, relativeTo: .title2))
                 .foregroundStyle(Theme.textPrimary)
             Text("No photos or videos found on this device.")
                 .font(.cozy(14))

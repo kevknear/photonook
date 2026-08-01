@@ -304,6 +304,17 @@
         }
       }
     },
+    "Clean and cozy." : {
+      "comment" : "Lema bajo el nombre en la presentación de arranque.",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpia y acogedora."
+          }
+        }
+      }
+    },
     "Collects discarded photos and deletes them every N: one alert per batch." : {
       "localizations" : {
         "es" : {
@@ -617,14 +628,10 @@
     "Language" : {
       "localizations" : {
         "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Idioma" }
-        }
-      }
-    },
-    "PhotoNook follows your iPhone's language. To use a different one for this app only, open iOS Settings → PhotoNook → Language." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "PhotoNook usa el idioma de tu iPhone. Si quieres otro solo para esta app, abre Ajustes de iOS → PhotoNook → Idioma." }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma"
+          }
         }
       }
     },
@@ -891,6 +898,16 @@
         }
       }
     },
+    "PhotoNook follows your iPhone's language. To use a different one for this app only, open iOS Settings → PhotoNook → Language." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PhotoNook usa el idioma de tu iPhone. Si quieres otro solo para esta app, abre Ajustes de iOS → PhotoNook → Idioma."
+          }
+        }
+      }
+    },
     "PhotoNook needs your photos" : {
       "localizations" : {
         "es" : {
@@ -900,6 +917,9 @@
           }
         }
       }
+    },
+    "PhotoNook. Clean and cozy." : {
+
     },
     "Photos you discard with a left swipe wait here before being deleted." : {
       "localizations" : {

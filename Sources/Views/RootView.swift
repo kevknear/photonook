@@ -5,6 +5,9 @@ import UIKit
 struct RootView: View {
     @Environment(SwipeViewModel.self) private var model
     @State private var didBootstrap = false
+    /// Solo en arranque en frío: `RootView` se construye una vez por proceso,
+    /// así que volver desde segundo plano no la repite.
+    @State private var showsSplash = true
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
 
@@ -20,6 +23,22 @@ struct RootView: View {
     }
 
     var body: some View {
+        ZStack {
+            content
+
+            if showsSplash {
+                SplashView {
+                    withAnimation(.easeInOut(duration: 0.45)) { showsSplash = false }
+                }
+                .transition(.opacity)
+                .zIndex(1)
+            }
+        }
+    }
+
+    /// El contenido real. Se construye siempre, también mientras la presentación
+    /// está encima: así la fototeca se carga durante la animación, no después.
+    private var content: some View {
         Group {
             if model.phase == .needsPermission {
                 PermissionView()
@@ -206,7 +225,7 @@ struct EmptyStateView: View {
             CozyEmblem(systemImage: "checkmark.seal.fill", tint: Theme.keep)
 
             Text("Nothing to review")
-                .font(.cozy(22, .bold))
+                .font(.handwritten(38, relativeTo: .title2))
                 .foregroundStyle(Theme.textPrimary)
 
             Text("“\(model.filter.source.title)” has no photos matching your current settings.")
@@ -254,7 +273,7 @@ struct SummaryView: View {
 
                 VStack(spacing: 5) {
                     Text("All done")
-                        .font(.cozy(24, .bold))
+                        .font(.handwritten(42, relativeTo: .title))
                         .foregroundStyle(Theme.textPrimary)
                     Text("Nice work — your gallery is lighter now.")
                         .font(.cozy(13))
@@ -366,7 +385,7 @@ struct PermissionView: View {
                 CozyEmblem(systemImage: "lock.open.fill", tint: Theme.pending)
 
                 Text("PhotoNook needs your photos")
-                    .font(.cozy(22, .bold))
+                    .font(.handwritten(38, relativeTo: .title2))
                     .foregroundStyle(Theme.textPrimary)
                     .multilineTextAlignment(.center)
 

@@ -19,10 +19,13 @@
 		AAAAAAAAAAAAAAAAAAAA0110 /* TrashTrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */; };
 		AAAAAAAAAAAAAAAAAAAA0121 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */; };
 		AAAAAAAAAAAAAAAAAAAA0122 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */; };
 		AAAAAAAAAAAAAAAAAAAA0123 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */; };
+		AAAAAAAAAAAAAAAAAAAA0124 /* Caveat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0240 /* Caveat-Regular.ttf */; };
+		AAAAAAAAAAAAAAAAAAAA0125 /* Caveat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0241 /* Caveat-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,12 +42,15 @@
 		AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashTrayView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0230 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0231 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0240 /* Caveat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Caveat-Regular.ttf"; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0241 /* Caveat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Caveat-Bold.ttf"; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0601 /* PhotoNook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoNook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -68,6 +74,15 @@
 			);
 			sourceTree = "<group>";
 		};
+		AAAAAAAAAAAAAAAAAAAA0308 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AAAAAAAAAAAAAAAAAAAA0240 /* Caveat-Regular.ttf */,
+				AAAAAAAAAAAAAAAAAAAA0241 /* Caveat-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		AAAAAAAAAAAAAAAAAAAA0307 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +101,7 @@
 				AAAAAAAAAAAAAAAAAAAA0304 /* Services */,
 				AAAAAAAAAAAAAAAAAAAA0305 /* ViewModels */,
 				AAAAAAAAAAAAAAAAAAAA0306 /* Views */,
+				AAAAAAAAAAAAAAAAAAAA0308 /* Fonts */,
 				AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */,
 				AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */,
 				AAAAAAAAAAAAAAAAAAAA0223 /* InfoPlist.xcstrings */,
@@ -129,6 +145,7 @@
 				AAAAAAAAAAAAAAAAAAAA0209 /* FilterView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +221,8 @@
 				AAAAAAAAAAAAAAAAAAAA0121 /* PrivacyInfo.xcprivacy in Resources */,
 				AAAAAAAAAAAAAAAAAAAA0122 /* Localizable.xcstrings in Resources */,
 				AAAAAAAAAAAAAAAAAAAA0123 /* InfoPlist.xcstrings in Resources */,
+				AAAAAAAAAAAAAAAAAAAA0124 /* Caveat-Regular.ttf in Resources */,
+				AAAAAAAAAAAAAAAAAAAA0125 /* Caveat-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +245,7 @@
 				AAAAAAAAAAAAAAAAAAAA0110 /* TrashTrayView.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

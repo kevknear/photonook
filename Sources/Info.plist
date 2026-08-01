@@ -10,6 +10,8 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,6 +26,11 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PhotoNook needs access to your photos so it can show them to you and delete the ones you swipe away.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Caveat-Regular.ttf</string>
+		<string>Caveat-Bold.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

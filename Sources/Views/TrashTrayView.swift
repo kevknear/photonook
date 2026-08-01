@@ -226,7 +226,7 @@ struct TrashTrayView: View {
             CozyEmblem(systemImage: "tray", tint: Theme.textSecondary)
 
             Text("The tray is empty")
-                .font(.cozy(21, .bold))
+                .font(.handwritten(36, relativeTo: .title2))
                 .foregroundStyle(Theme.textPrimary)
 
             Text("Photos you discard with a left swipe wait here before being deleted.")

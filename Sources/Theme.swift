@@ -159,6 +159,65 @@ extension Font {
     static func fixed(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
         .system(size: size, weight: weight, design: .rounded)
     }
+
+    /// Manuscrita de marca (Caveat). Solo para el nombre y los encabezados:
+    /// una tipografía de display no debe usarse en texto corrido.
+    ///
+    /// Caveat tiene una altura de x pequeña, así que a igualdad de puntos se ve
+    /// bastante menor que la del sistema. Los tamaños de aquí ya vienen compensados.
+    ///
+    /// Si la fuente no está instalada, cae a una serif en itálica: peor, pero
+    /// coherente. Nunca falla ni deja hueco.
+    static func handwritten(
+        _ size: CGFloat,
+        relativeTo style: Font.TextStyle = .title
+    ) -> Font {
+        guard let name = BrandFont.handwrittenName else {
+            return .system(size: size * 0.68, weight: .semibold, design: .serif).italic()
+        }
+        return .custom(name, size: size, relativeTo: style)
+    }
+}
+
+// MARK: - Resolución de la fuente de marca
+
+/// Localiza Caveat en tiempo de ejecución en vez de fijar un nombre PostScript.
+///
+/// Google Fonts ha cambiado esos nombres entre versiones —la variable y las
+/// estáticas no se llaman igual— y un nombre equivocado hace que `Font.custom`
+/// falle en silencio. Buscando por familia da igual cuál hayas descargado.
+enum BrandFont {
+
+    /// Nombre PostScript real de la Caveat instalada, o `nil` si no está.
+    /// Se resuelve una sola vez.
+    static let handwrittenName: String? = {
+        guard let family = UIFont.familyNames.first(where: {
+            $0.localizedCaseInsensitiveContains("Caveat")
+        }) else { return nil }
+
+        let names = UIFont.fontNames(forFamilyName: family)
+        // Preferimos la negrita: a tamaños grandes la regular queda deslavada.
+        return names.first { $0.localizedCaseInsensitiveContains("Bold") } ?? names.first
+    }()
+
+    /// Diagnóstico para la consola de Xcode. Solo en compilaciones de depuración.
+    static func logAvailability() {
+        #if DEBUG
+        if let name = handwrittenName {
+            print("✅ Fuente de marca cargada: \(name)")
+        } else {
+            let installed = UIFont.familyNames.sorted().joined(separator: ", ")
+            print("""
+            ⚠️ Caveat NO está instalada. Se usará la serif del sistema.
+               Comprueba:
+               1. Que los .ttf están en Sources/Fonts/
+               2. Que aparecen en Build Phases → Copy Bundle Resources
+               3. Que los nombres coinciden con UIAppFonts en Info.plist
+               Familias disponibles: \(installed)
+            """)
+        }
+        #endif
+    }
 }
 
 // MARK: - Modificadores reutilizables

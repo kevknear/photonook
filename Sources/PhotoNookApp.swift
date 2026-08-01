@@ -7,6 +7,8 @@ struct PhotoNookApp: App {
     init() {
         // Alinea las barras del sistema (navegación y pestañas) con la paleta cálida.
         Appearance.configure()
+        // Avisa por consola si la tipografía de marca no llegó al bundle.
+        BrandFont.logAvailability()
     }
 
     var body: some Scene {
