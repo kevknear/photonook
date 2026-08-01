@@ -10,7 +10,11 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OUT="$ROOT/Sources/Assets.xcassets/AppIcon.appiconset/icon-1024.png"
+
+# OJO: el icono en uso es el del rincón con la repisa, que NO lo genera este
+# script. Por eso escribe a un archivo aparte en vez de sobrescribir el bueno.
+# Si alguna vez quieres el generado, cópialo tú encima de icon-1024.png.
+OUT="$ROOT/Sources/Assets.xcassets/AppIcon.appiconset/icon-generado.png"
 SRC="${TMPDIR:-/tmp}MakeIcon.swift"
 
 mkdir -p "$(dirname "$OUT")"
