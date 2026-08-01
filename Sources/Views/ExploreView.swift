@@ -29,7 +29,9 @@ struct ExploreView: View {
                 }
             }
             .navigationTitle("Explore")
-            .navigationBarTitleDisplayMode(.large)
+            // En línea como el resto de pestañas. Con título grande la barra
+            // reservaba ~100 pt que quedaban vacíos.
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -72,14 +74,23 @@ struct ExploreView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         header(for: group)
 
-                        LazyVGrid(columns: columns, spacing: 12) {
+                        // Un grupo con una sola tarjeta ocuparía media fila y dejaría
+                        // un hueco raro: en ese caso va a ancho completo, con la
+                        // portada más apaisada para que no quede desproporcionada.
+                        let isSolo = group.sections.count == 1
+
+                        LazyVGrid(
+                            columns: isSolo ? [GridItem(.flexible())] : columns,
+                            spacing: 12
+                        ) {
                             ForEach(group.sections) { section in
                                 Button {
                                     select(section.source)
                                 } label: {
                                     SectionCard(
                                         section: section,
-                                        isCurrent: section.source == model.filter.source
+                                        isCurrent: section.source == model.filter.source,
+                                        isWide: isSolo
                                     )
                                 }
                                 .buttonStyle(BouncyButtonStyle())
@@ -153,6 +164,8 @@ struct ExploreView: View {
 struct SectionCard: View {
     let section: LibrarySection
     let isCurrent: Bool
+    /// Ocupa el ancho completo de la rejilla (grupos de un solo elemento).
+    var isWide: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -168,7 +181,7 @@ struct SectionCard: View {
 
     private var cover: some View {
         Theme.photoWell
-            .aspectRatio(1.25, contentMode: .fit)
+            .aspectRatio(isWide ? 2.6 : 1.25, contentMode: .fit)
             .overlay {
                 if let id = section.coverAssetID {
                     AssetCoverImage(identifier: id)

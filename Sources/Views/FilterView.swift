@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Ajustes de la sesión. La elección del origen vive en Explorar;
 /// aquí solo se afina lo que se aplica encima.
@@ -17,6 +18,15 @@ struct FilterView: View {
             get: { AppearanceMode(rawValue: appearanceRaw) ?? .system },
             set: { appearanceRaw = $0.rawValue }
         )
+    }
+
+    /// Idioma con el que iOS está mostrando la app ahora mismo, en su propio nombre
+    /// ("English", "Español"), que es como lo escribe el sistema.
+    private var currentLanguageName: String {
+        let code = Bundle.main.preferredLocalizations.first ?? "en"
+        let locale = Locale(identifier: code)
+        return (locale.localizedString(forLanguageCode: code) ?? code)
+            .localizedCapitalized
     }
 
     var body: some View {
@@ -97,6 +107,39 @@ struct FilterView: View {
                     Text("Appearance")
                 } footer: {
                     Text("“System” follows your iPhone's Display & Brightness setting. Changes apply instantly and are remembered.")
+                }
+
+                Section {
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "globe")
+                                .font(.fixed(13))
+                                .foregroundStyle(Theme.textOnAccent)
+                                .frame(width: 32, height: 32)
+                                .background(Circle().fill(Theme.info))
+
+                            Text("Language")
+                                .foregroundStyle(Theme.textPrimary)
+
+                            Spacer()
+
+                            Text(currentLanguageName)
+                                .foregroundStyle(Theme.textSecondary)
+
+                            Image(systemName: "arrow.up.forward.app")
+                                .font(.fixed(12))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                } header: {
+                    Text("Language")
+                } footer: {
+                    Text("PhotoNook follows your iPhone's language. To use a different one for this app only, open iOS Settings → PhotoNook → Language.")
                 }
 
                 Section {

@@ -96,6 +96,8 @@ final class SwipeViewModel {
     private var history: [HistoryEntry] = []
     private var sizeCache: [String: Int64] = [:]
     private var sizeTask: Task<Void, Never>?
+    private var libraryObserver: PhotoLibraryChangeBroadcaster?
+    private var libraryChangeTask: Task<Void, Never>?
 
     private let service = PhotoLibraryService.shared
 
@@ -147,6 +149,8 @@ final class SwipeViewModel {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useMB, .useGB, .useKB]
         formatter.countStyle = .file
+        // Sin esto, un cero se escribe "Zero KB" en lugar de "0 KB".
+        formatter.allowsNonnumericFormatting = false
         return formatter.string(fromByteCount: max(0, bytes))
     }
 
@@ -169,10 +173,71 @@ final class SwipeViewModel {
     }
 
     private func start() async {
+        observeLibrary()
         // El catálogo primero (es la pantalla de inicio); el mazo se prepara detrás.
         async let catalog: Void = loadSections()
         await loadAssets()
         await catalog
+    }
+
+    // MARK: - Cambios en la fototeca
+
+    /// Se suscribe a los cambios de la fototeca para que los recuentos no se queden
+    /// viejos si el usuario añade o borra fotos desde fuera de la app.
+    private func observeLibrary() {
+        guard libraryObserver == nil else { return }
+        libraryObserver = PhotoLibraryChangeBroadcaster { [weak self] in
+            // `guard let` produce un `let`, no un `var`: evita el error de captura
+            // de Swift 6. La clase está aislada al MainActor, luego es Sendable.
+            guard let self else { return }
+            Task { @MainActor in self.scheduleLibraryRefresh() }
+        }
+    }
+
+    /// Un solo cambio del usuario puede disparar varias notificaciones seguidas.
+    /// Se deja pasar un momento y se atiende solo la última.
+    private func scheduleLibraryRefresh() {
+        libraryChangeTask?.cancel()
+        libraryChangeTask = Task { @MainActor [self] in
+            try? await Task.sleep(nanoseconds: 400_000_000)
+            guard !Task.isCancelled else { return }
+            await handleLibraryChange()
+        }
+    }
+
+    private func handleLibraryChange() async {
+        // Mientras la propia app borra, el estado ya se está actualizando solo.
+        guard !isCommitting else { return }
+
+        // El catálogo no guarda estado de sesión: recalcularlo siempre es seguro.
+        await loadSections()
+
+        if reviewedCount == 0 || phase == .empty {
+            // Sesión sin empezar: recarga limpia para recoger las fotos nuevas.
+            await loadAssets()
+        } else {
+            // Sesión en curso: no la tires abajo. Quita solo lo que ya no existe
+            // y que el usuario aún no ha visto.
+            pruneUpcomingAssets()
+        }
+    }
+
+    /// Elimina del tramo pendiente los assets que hayan desaparecido de la fototeca.
+    /// Lo ya revisado se deja intacto: los contadores y el historial deben cuadrar
+    /// con lo que el usuario hizo, aunque esas fotos ya no existan.
+    private func pruneUpcomingAssets() {
+        guard currentIndex < assets.count else { return }
+
+        let upcoming = Array(assets[currentIndex...])
+        let alive = service.existingIdentifiers(among: upcoming.map(\.localIdentifier))
+        guard alive.count != upcoming.count else { return }
+
+        let survivors = upcoming.filter { alive.contains($0.localIdentifier) }
+        assets.replaceSubrange(currentIndex..., with: survivors)
+
+        if currentIndex >= assets.count {
+            phase = assets.isEmpty ? .empty : .finished
+        }
     }
 
     /// Construye el catálogo del explorador. Solo cruzan tipos de valor, así que

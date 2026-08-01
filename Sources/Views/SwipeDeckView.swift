@@ -129,7 +129,9 @@ struct SwipeDeckView: View {
                 RoundedRectangle(cornerRadius: Metrics.cardRadius, style: .continuous)
                     .stroke(tint.opacity(Double(progress)), lineWidth: 3)
             )
-            .overlay(alignment: discarding ? .topLeading : .topTrailing) {
+            // El sello va en el lado OPUESTO al arrastre: si la carta se mueve a la
+            // derecha, su borde derecho sale de pantalla y se llevaría el sello con él.
+            .overlay(alignment: discarding ? .topTrailing : .topLeading) {
                 stamp(
                     text: discarding
                         ? String(localized: "DELETE")
@@ -137,7 +139,7 @@ struct SwipeDeckView: View {
                     icon: discarding ? "trash.fill" : "heart.fill",
                     tint: tint
                 )
-                .rotationEffect(.degrees(discarding ? -10 : 10))
+                .rotationEffect(.degrees(discarding ? 10 : -10))
                 .padding(26)
                 .opacity(Double(progress))
                 .scaleEffect(0.85 + Double(progress) * 0.15)

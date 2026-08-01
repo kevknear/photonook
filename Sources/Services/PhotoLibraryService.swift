@@ -98,6 +98,17 @@ final class PhotoLibraryService: @unchecked Sendable {
         }
     }
 
+    /// De los identificadores dados, cuáles siguen existiendo en la fototeca.
+    /// Se usa para podar del mazo lo que se haya borrado desde fuera de la app.
+    @MainActor
+    func existingIdentifiers(among identifiers: [String]) -> Set<String> {
+        guard !identifiers.isEmpty else { return [] }
+        let fetched = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+        var alive: Set<String> = []
+        fetched.enumerateObjects { asset, _, _ in alive.insert(asset.localIdentifier) }
+        return alive
+    }
+
     private func materialize(_ result: PHFetchResult<PHAsset>) -> [PHAsset] {
         var assets: [PHAsset] = []
         assets.reserveCapacity(result.count)
@@ -530,6 +541,33 @@ final class PhotoLibraryService: @unchecked Sendable {
                 }
             }
         }
+    }
+}
+
+// MARK: - Observador de la fototeca
+
+/// Avisa cuando la fototeca cambia por cualquier vía: la app Fotos, otra app,
+/// iCloud, o la propia PhotoNook al borrar.
+///
+/// `PHChange` no es `Sendable` y el callback del sistema llega en una cola
+/// arbitraria, así que aquí no se propaga el detalle del cambio: solo la señal
+/// de "algo cambió". Quien la recibe decide qué recalcular.
+final class PhotoLibraryChangeBroadcaster: NSObject, PHPhotoLibraryChangeObserver, @unchecked Sendable {
+
+    private let onChange: @Sendable () -> Void
+
+    init(onChange: @escaping @Sendable () -> Void) {
+        self.onChange = onChange
+        super.init()
+        PHPhotoLibrary.shared().register(self)
+    }
+
+    deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        onChange()
     }
 }
 
