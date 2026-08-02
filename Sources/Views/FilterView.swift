@@ -129,7 +129,8 @@ struct FilterView: View {
                 } header: {
                     Text("Photos stored in iCloud")
                 } footer: {
-                    Text(cloudPolicy.wrappedValue.explanation)
+                    Text(cloudPolicy.wrappedValue.explanation + "\n\n"
+                         + String(localized: "In the gallery, a ☁ badge marks photos whose original lives in iCloud rather than on this device."))
                 }
 
                 Section {

@@ -136,8 +136,22 @@ private struct GalleryCell: View {
     let decision: SwipeViewModel.Decision?
 
     @State private var image: UIImage?
+    /// El original vive en iCloud y no está descargado en este dispositivo.
+    /// Llega gratis: `localThumbnail` ya lo informa al cargar la miniatura.
+    @State private var isInCloud = false
 
     private var isDecided: Bool { decision != nil }
+
+    private var accessibilityDescription: String {
+        var parts: [String] = []
+        switch decision {
+        case .kept:      parts.append(String(localized: "Kept"))
+        case .discarded: parts.append(String(localized: "Discarded"))
+        case nil:        parts.append(String(localized: "Not reviewed"))
+        }
+        if isInCloud { parts.append(String(localized: "Stored in iCloud")) }
+        return parts.joined(separator: ", ")
+    }
 
     var body: some View {
         Theme.photoWell
@@ -168,8 +182,20 @@ private struct GalleryCell: View {
                         .padding(5)
                 }
             }
+            // Arriba a la izquierda para no chocar con el icono de la decisión.
+            .overlay(alignment: .topLeading) {
+                if isInCloud {
+                    Image(systemName: "icloud")
+                        .font(.fixed(10, .semibold))
+                        .foregroundStyle(Theme.textOnAccent)
+                        .padding(4)
+                        .background(Theme.textPrimary.opacity(0.55), in: Circle())
+                        .padding(4)
+                }
+            }
             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
             .contentShape(Rectangle())
+            .accessibilityLabel(accessibilityDescription)
             .task(id: asset.localIdentifier) {
                 if let cached = CoverCache.shared.image(for: asset.localIdentifier) {
                     image = cached
@@ -185,6 +211,7 @@ private struct GalleryCell: View {
                 if let loaded = result.image {
                     CoverCache.shared.store(loaded, for: asset.localIdentifier)
                 }
+                isInCloud = result.isInCloud
                 withAnimation(.easeOut(duration: 0.18)) { image = result.image }
             }
     }

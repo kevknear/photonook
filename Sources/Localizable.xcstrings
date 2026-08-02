@@ -691,6 +691,27 @@
         }
       }
     },
+    "In the gallery, a ☁ badge marks photos whose original lives in iCloud rather than on this device." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "En la galería, un distintivo ☁ marca las fotos cuyo original está en iCloud y no en este dispositivo." }
+        }
+      }
+    },
+    "Not reviewed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sin revisar" }
+        }
+      }
+    },
+    "Stored in iCloud" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Guardada en iCloud" }
+        }
+      }
+    },
     "Include videos" : {
       "localizations" : {
         "es" : {
