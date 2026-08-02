@@ -271,7 +271,8 @@ struct AssetCoverImage: View {
                 image = cached
                 return
             }
-            let loaded = await PhotoLibraryService.shared.image(
+            // Solo local: las portadas no justifican descargar de iCloud.
+            let loaded = await PhotoLibraryService.shared.localThumbnail(
                 withIdentifier: identifier,
                 targetSize: CGSize(width: 400, height: 400)
             )

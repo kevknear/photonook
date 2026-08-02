@@ -175,15 +175,17 @@ private struct GalleryCell: View {
                     image = cached
                     return
                 }
-                let loaded = await PhotoLibraryService.shared.image(
+                // Solo local: con miles de celdas, permitir red aquí descargaría
+                // media galería de iCloud al desplazarse.
+                let result = await PhotoLibraryService.shared.localThumbnail(
                     for: asset,
                     targetSize: CGSize(width: 300, height: 300)
                 )
                 guard !Task.isCancelled else { return }
-                if let loaded {
+                if let loaded = result.image {
                     CoverCache.shared.store(loaded, for: asset.localIdentifier)
                 }
-                withAnimation(.easeOut(duration: 0.18)) { image = loaded }
+                withAnimation(.easeOut(duration: 0.18)) { image = result.image }
             }
     }
 }

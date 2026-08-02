@@ -444,15 +444,66 @@ final class PhotoLibraryService: @unchecked Sendable {
 
     // MARK: - Imágenes
 
-    /// Carga la imagen de un asset en alta calidad. Un único callback garantizado.
+    /// Resultado de pedir la versión local de una foto.
+    struct LocalThumbnail {
+        let image: UIImage?
+        /// El original no está en el dispositivo: vive en iCloud y habría que
+        /// descargarlo para verlo en alta calidad.
+        let isInCloud: Bool
+    }
+
+    /// Miniatura que ya está en el dispositivo. **Nunca toca la red.**
+    ///
+    /// Con "Optimizar almacenamiento del iPhone" activado, iOS deja en local solo
+    /// versiones reducidas y guarda los originales en iCloud. Esta llamada devuelve
+    /// esa versión reducida al instante, o `nil` si no hay ninguna.
+    ///
+    /// Es la única que deben usar las cuadrículas: pedir con red permitida mientras
+    /// alguien se desplaza por miles de miniaturas dispararía miles de descargas.
     @MainActor
-    func image(for asset: PHAsset, targetSize: CGSize) async -> UIImage? {
+    func localThumbnail(for asset: PHAsset, targetSize: CGSize) async -> LocalThumbnail {
+        await withCheckedContinuation { continuation in
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .fastFormat
+            options.resizeMode = .fast
+            options.isNetworkAccessAllowed = false
+            options.isSynchronous = false
+
+            imageManager.requestImage(
+                for: asset,
+                targetSize: targetSize,
+                contentMode: .aspectFit,
+                options: options
+            ) { image, info in
+                let inCloud = (info?[PHImageResultIsInCloudKey] as? Bool) ?? false
+                continuation.resume(
+                    returning: LocalThumbnail(image: image, isInCloud: inCloud)
+                )
+            }
+        }
+    }
+
+    /// Imagen en alta calidad. Puede requerir descarga desde iCloud, así que
+    /// informa del avance para que la vista pueda mostrarlo.
+    ///
+    /// Solo debe usarla el mazo, que muestra una foto cada vez.
+    @MainActor
+    func fullImage(
+        for asset: PHAsset,
+        targetSize: CGSize,
+        onProgress: @escaping @Sendable (Double) -> Void = { _ in }
+    ) async -> UIImage? {
         await withCheckedContinuation { continuation in
             let options = PHImageRequestOptions()
             options.deliveryMode = .highQualityFormat
             options.resizeMode = .fast
             options.isNetworkAccessAllowed = true
             options.isSynchronous = false
+            // Llega en una cola arbitraria; quien lo reciba se encarga de saltar
+            // al MainActor si va a tocar la interfaz.
+            options.progressHandler = { progress, _, _, _ in
+                onProgress(progress)
+            }
 
             imageManager.requestImage(
                 for: asset,
@@ -465,20 +516,28 @@ final class PhotoLibraryService: @unchecked Sendable {
         }
     }
 
-    /// Carga una imagen a partir de su identificador. Útil para portadas del explorador.
+    /// Portada por identificador, para el explorador. Local, sin red.
     @MainActor
-    func image(withIdentifier identifier: String, targetSize: CGSize) async -> UIImage? {
+    func localThumbnail(withIdentifier identifier: String, targetSize: CGSize) async -> UIImage? {
         let fetched = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: nil)
         guard let asset = fetched.firstObject else { return nil }
-        return await image(for: asset, targetSize: targetSize)
+        return await localThumbnail(for: asset, targetSize: targetSize).image
     }
 
     /// Pre-carga en caché las imágenes de los próximos assets para que el deck vaya fluido.
+    ///
+    /// Sin red: precargar es una apuesta sobre lo que el usuario mirará después, y
+    /// no conviene gastarle datos en fotos que quizá ni llegue a ver.
     @MainActor
     func startCaching(assets: [PHAsset], targetSize: CGSize) {
         guard !assets.isEmpty else { return }
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .fast
+        options.isNetworkAccessAllowed = false
+
         imageManager.startCachingImages(
-            for: assets, targetSize: targetSize, contentMode: .aspectFit, options: nil
+            for: assets, targetSize: targetSize, contentMode: .aspectFit, options: options
         )
     }
 

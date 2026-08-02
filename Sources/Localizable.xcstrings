@@ -384,6 +384,20 @@
         }
       }
     },
+    "Couldn't load this one" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "No se pudo cargar esta" }
+        }
+      }
+    },
+    "Downloading from iCloud…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Descargando de iCloud…" }
+        }
+      }
+    },
     "Dark" : {
       "localizations" : {
         "es" : {

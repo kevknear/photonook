@@ -11,6 +11,9 @@ struct PhotoCardView: View {
     let asset: PHAsset
 
     @State private var image: UIImage?
+    /// Descargando el original desde iCloud, con su avance de 0 a 1.
+    @State private var cloudProgress: Double?
+    @State private var cloudFailed = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -44,6 +47,7 @@ struct PhotoCardView: View {
                         .stroke(Theme.hairline.opacity(0.5), lineWidth: 1)
                 )
                 .overlay(alignment: .topTrailing) { tags }
+                .overlay(alignment: .bottom) { cloudStatus }
                 .task(id: asset.localIdentifier) {
                     await load(targetSize: geometry.size)
                 }
@@ -63,6 +67,38 @@ struct PhotoCardView: View {
             }
         }
         .padding(10)
+    }
+
+    /// Aviso de que la foto viene de iCloud, con su avance.
+    @ViewBuilder
+    private var cloudStatus: some View {
+        if let progress = cloudProgress {
+            HStack(spacing: 7) {
+                ProgressView(value: max(0.02, progress))
+                    .progressViewStyle(.circular)
+                    .controlSize(.mini)
+                    .tint(Theme.textOnAccent)
+                Text("Downloading from iCloud…")
+            }
+            .font(.fixed(11, .medium))
+            .foregroundStyle(Theme.textOnAccent)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(Theme.textPrimary.opacity(0.78), in: Capsule())
+            .padding(.bottom, 14)
+            .transition(.opacity)
+        } else if cloudFailed {
+            HStack(spacing: 7) {
+                Image(systemName: "icloud.slash")
+                Text("Couldn't load this one")
+            }
+            .font(.fixed(11, .medium))
+            .foregroundStyle(Theme.textOnAccent)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(Theme.discard.opacity(0.9), in: Capsule())
+            .padding(.bottom, 14)
+        }
     }
 
     private func tag(icon: String, text: String) -> some View {
@@ -120,16 +156,47 @@ struct PhotoCardView: View {
 
     // MARK: - Carga
 
+    /// Carga en dos fases.
+    ///
+    /// Primero la miniatura que ya está en el dispositivo, que aparece al instante
+    /// aunque sea de baja resolución. Solo después se pide el original, que con
+    /// "Optimizar almacenamiento" puede venir de iCloud y tardar. Así nunca se ve
+    /// una carta en blanco esperando a la red.
     private func load(targetSize: CGSize) async {
+        let service = PhotoLibraryService.shared
         let scale = min(UITraitCollection.current.displayScale, 3)
         let size = CGSize(
             width: max(targetSize.width, 300) * scale,
             height: max(targetSize.height, 300) * scale
         )
-        let loaded = await PhotoLibraryService.shared.image(for: asset, targetSize: size)
+
+        // Fase 1: lo que haya en local, ya.
+        let local = await service.localThumbnail(for: asset, targetSize: size)
         guard !Task.isCancelled else { return }
-        withAnimation(.easeOut(duration: 0.2)) {
-            image = loaded
+        if let thumb = local.image {
+            withAnimation(.easeOut(duration: 0.15)) { image = thumb }
+        }
+
+        if local.isInCloud {
+            cloudProgress = 0
+        }
+
+        // Fase 2: el original, con red si hace falta.
+        let full = await service.fullImage(for: asset, targetSize: size) { progress in
+            Task { @MainActor in
+                // Solo interesa mientras siga siendo la misma carta.
+                if cloudProgress != nil { cloudProgress = progress }
+            }
+        }
+
+        guard !Task.isCancelled else { return }
+        cloudProgress = nil
+
+        if let full {
+            withAnimation(.easeOut(duration: 0.2)) { image = full }
+        } else if image == nil {
+            // Ni local ni descarga: no hay nada que enseñar.
+            cloudFailed = true
         }
     }
 }

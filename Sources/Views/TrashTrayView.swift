@@ -372,12 +372,13 @@ private struct ThumbnailCell: View {
             .shadow(color: Theme.shadow.opacity(0.1), radius: 3, y: 2)
             .contentShape(Rectangle())
             .task(id: asset.localIdentifier) {
-                let loaded = await PhotoLibraryService.shared.image(
+                // Solo local, sin red: ver la bandeja no debe costar datos.
+                let result = await PhotoLibraryService.shared.localThumbnail(
                     for: asset,
                     targetSize: CGSize(width: 320, height: 320)
                 )
                 guard !Task.isCancelled else { return }
-                withAnimation(.easeOut(duration: 0.2)) { image = loaded }
+                withAnimation(.easeOut(duration: 0.2)) { image = result.image }
             }
     }
 }
