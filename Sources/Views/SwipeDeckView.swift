@@ -9,6 +9,13 @@ struct SwipeDeckView: View {
     @State private var isAnimatingOut = false
     @State private var zoomTarget: ZoomTarget?
 
+    /// Vistazo rápido: la carta crece mientras mantienes los dedos y vuelve al
+    /// soltar, como en Instagram. Para comprobar un detalle sin abrir el visor.
+    @State private var peekScale: CGFloat = 1
+    @State private var peekAnchor: UnitPoint = .center
+
+    private var isPeeking: Bool { peekScale > 1.01 }
+
     private let threshold: CGFloat = 110
 
     /// `PHAsset` no es `Identifiable`, y `fullScreenCover(item:)` lo necesita.
@@ -52,7 +59,10 @@ struct SwipeDeckView: View {
                     .overlay { decisionOverlay }
                     .offset(x: offset.width, y: offset.height * 0.3)
                     .rotationEffect(.degrees(Double(offset.width) / 24))
+                    .scaleEffect(peekScale, anchor: peekAnchor)
+                    .zIndex(1)
                     .gesture(dragGesture)
+                    .simultaneousGesture(peekGesture)
                     .id(current.localIdentifier)
                 }
             }
@@ -83,14 +93,35 @@ struct SwipeDeckView: View {
 
     // MARK: - Gesto
 
+    /// Ampliación temporal mientras dura la pinza.
+    ///
+    /// `startAnchor` es el punto donde empezaste a pellizcar, así que la carta
+    /// crece desde ahí y no desde el centro: si te fijas en una esquina, es esa
+    /// esquina la que se acerca.
+    private var peekGesture: some Gesture {
+        MagnifyGesture()
+            .onChanged { value in
+                guard !isAnimatingOut else { return }
+                peekAnchor = value.startAnchor
+                peekScale = min(max(value.magnification, 1), 4)
+            }
+            .onEnded { _ in
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                    peekScale = 1
+                }
+            }
+    }
+
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                guard !isAnimatingOut else { return }
+                // Mientras se amplía, los dedos se mueven: sin esto la carta
+                // saldría disparada al soltar la pinza.
+                guard !isAnimatingOut, !isPeeking else { return }
                 offset = value.translation
             }
             .onEnded { value in
-                guard !isAnimatingOut else { return }
+                guard !isAnimatingOut, !isPeeking else { return }
                 if value.translation.width < -threshold {
                     animateOut(toLeft: true)
                 } else if value.translation.width > threshold {

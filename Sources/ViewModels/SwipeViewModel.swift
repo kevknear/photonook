@@ -156,8 +156,13 @@ final class SwipeViewModel {
         decisions[asset.localIdentifier]
     }
 
-    /// Cuántas quedan por decidir en la sección.
-    var remainingCount: Int { max(0, totalCount - reviewedCount) }
+    /// Cuántas de las fotos presentes siguen sin decisión.
+    ///
+    /// Se mantiene al vuelo en lugar de derivarse de los contadores. Al borrar un
+    /// lote, esas fotos salen de `assets` pero siguen sumando en `deletedCount`
+    /// —son el logro de la sesión y deben aparecer en el resumen—, así que
+    /// `total - revisadas` daría un número equivocado.
+    private(set) var remainingCount: Int = 0
 
     var progress: Double {
         guard totalCount > 0 else { return 0 }
@@ -261,6 +266,27 @@ final class SwipeViewModel {
             // Sesión en curso: no la tires abajo. Quita solo lo que ya no existe
             // y que el usuario aún no ha visto.
             pruneUpcomingAssets()
+        }
+    }
+
+    /// Saca de la sección las fotos que se acaban de borrar.
+    ///
+    /// `deletedCount` y `bytesFreed` no se tocan: son el resultado de la sesión y
+    /// deben seguir apareciendo en el resumen aunque esas fotos ya no existan.
+    /// Lo que sí hay que corregir es `currentIndex`, o el mazo daría un salto
+    /// hacia adelante por cada foto eliminada que quedaba por detrás.
+    private func removeDeletedAssets(_ ids: Set<String>) {
+        guard !ids.isEmpty else { return }
+
+        let removedBefore = assets.prefix(currentIndex)
+            .filter { ids.contains($0.localIdentifier) }
+            .count
+
+        assets.removeAll { ids.contains($0.localIdentifier) }
+        currentIndex = max(0, currentIndex - removedBefore)
+
+        if currentIndex >= assets.count {
+            phase = assets.isEmpty ? .empty : .finished
         }
     }
 
@@ -423,10 +449,12 @@ final class SwipeViewModel {
         bytesFreed = 0
         pendingDeletion = []
         decisions = [:]
+        remainingCount = assets.count
 
         for asset in assets {
             let id = asset.localIdentifier
             guard let stored = storedDecisions[id] else { continue }
+            remainingCount -= 1
 
             let decision: Decision = stored.decision == "kept" ? .kept : .discarded
             decisions[id] = decision
@@ -489,6 +517,8 @@ final class SwipeViewModel {
         case nil:
             break
         }
+
+        if previous == nil { remainingCount = max(0, remainingCount - 1) }
 
         decisions[id] = decision
         persist(decision, for: id)
@@ -580,14 +610,18 @@ final class SwipeViewModel {
             break
         }
 
+        let hadDecision = decisions[id] != nil
+
         guard let decision else {
             decisions.removeValue(forKey: id)
             persist(nil, for: id)
+            if hadDecision { remainingCount += 1 }
             return
         }
 
         decisions[id] = decision
         persist(decision, for: id)
+        if !hadDecision { remainingCount = max(0, remainingCount - 1) }
         switch decision {
         case .kept:
             keptCount += 1
@@ -660,6 +694,7 @@ final class SwipeViewModel {
 
         for asset in returning {
             // Vuelve a quedar sin decidir: no es conservada, es "ya veré".
+            // `restore(nil,…)` ya suma una a las pendientes de decidir.
             restore(nil, for: asset, bytes: sizeCache[asset.localIdentifier] ?? 0)
             assets.append(asset)
         }
@@ -697,6 +732,9 @@ final class SwipeViewModel {
             pendingDeletion.removeAll { ids.contains($0.localIdentifier) }
             // Las ya borradas dejan de ser reversibles.
             history.removeAll { !$0.wasKept && ids.contains($0.asset.localIdentifier) }
+            // Y desaparecen de la sección al momento: esperar al observador de la
+            // fototeca dejaba fotos fantasma en la cuadrícula y en el mazo.
+            removeDeletedAssets(ids)
             infoMessage = String(localized: "\(batch.count) moved to Recently Deleted.")
         } catch is CancellationError {
             infoMessage = String(localized: "Deletion cancelled. They're still marked.")
