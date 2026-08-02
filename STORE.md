@@ -135,8 +135,20 @@ analítica ni SDK de terceros. El acceso a Fotos es funcional y no sale del disp
 
 - **Categoría:** Utilidades (primaria). Fotografía y vídeo (secundaria).
 - **Clasificación por edad:** 4+.
-- **URL de política de privacidad:** la de `PRIVACY.md` / `PRIVACY-EN.md` ya publicada.
 - **Idiomas:** inglés (principal) y español.
+
+## URLs para App Store Connect
+
+Publicadas con GitHub Pages desde este mismo repositorio:
+
+| Campo | Inglés | Español |
+|---|---|---|
+| Privacy Policy URL | `https://kevknear.github.io/photonook/privacy/` | `https://kevknear.github.io/photonook/privacidad/` |
+| Support URL | `https://kevknear.github.io/photonook/support/` | `https://kevknear.github.io/photonook/soporte/` |
+| Marketing URL (opcional) | `https://kevknear.github.io/photonook/` | igual |
+
+Ambas son obligatorias y Apple las comprueba, también después de publicar. Mientras el
+repositorio siga siendo público y no borres las Pages, no hay nada que mantener.
 
 ## Capturas
 

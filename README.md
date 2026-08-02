@@ -217,8 +217,10 @@ Requires the Apple Developer Program ($99/year). Already prepared in this repo:
   uses `UserDefaults`, which is on Apple's Required Reason API list.
 - **Export compliance** — `ITSAppUsesNonExemptEncryption` is set to `false` in `Info.plist`, so
   uploads skip the encryption questionnaire.
-- **Privacy policy** — `PRIVACY-EN.md` and `PRIVACY.md`. Both need to be published at public URLs
-  and referenced in App Store Connect.
+- **Privacy policy** — `PRIVACY-EN.md` and `PRIVACY.md`, published via GitHub Pages.
+- **Support page** — `SUPPORT.md` and `SOPORTE.md`, also required by App Store Connect. They
+  double as a FAQ covering the questions users actually ask: where deleted photos go, why iOS
+  confirms every deletion, what the cloud badge means, how to reset progress.
 - **Store copy** — `STORE.md` has the name, subtitle, description, keywords, and promotional text
   in both languages, within Apple's character limits.
 
