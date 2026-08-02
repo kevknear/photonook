@@ -64,15 +64,21 @@ struct PhotoZoomView: View {
             }
             .ignoresSafeArea()
         } else if isLoading {
+            // Dos ramas y no un ternario sobre el estilo: `.circular` y `.linear`
+            // son tipos distintos y no unifican en el mismo `some ProgressViewStyle`.
             VStack(spacing: 14) {
-                ProgressView(value: cloudProgress ?? 0)
-                    .progressViewStyle(cloudProgress == nil ? .circular : .linear)
-                    .tint(.white)
-                    .frame(maxWidth: 160)
-                if cloudProgress != nil {
+                if let progress = cloudProgress {
+                    ProgressView(value: progress)
+                        .progressViewStyle(.linear)
+                        .tint(.white)
+                        .frame(maxWidth: 160)
                     Text("Downloading from iCloud…")
                         .font(.cozy(12))
                         .foregroundStyle(.white.opacity(0.7))
+                } else {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .tint(.white)
                 }
             }
         } else {
