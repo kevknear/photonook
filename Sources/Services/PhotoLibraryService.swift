@@ -464,7 +464,14 @@ final class PhotoLibraryService: @unchecked Sendable {
     func localThumbnail(for asset: PHAsset, targetSize: CGSize) async -> LocalThumbnail {
         await withCheckedContinuation { continuation in
             let options = PHImageRequestOptions()
-            options.deliveryMode = .fastFormat
+            // `.highQualityFormat` genera la imagen a partir del original que hay
+            // en disco. `.fastFormat` solo devuelve una representación ya cacheada
+            // y, si no existe y no se permite red, falla con el error 3303
+            // "No resource found matching image request spec" en vez de crearla.
+            //
+            // `.opportunistic` tampoco sirve aquí: entrega varias veces y esta
+            // función reanuda una continuación, que solo admite una.
+            options.deliveryMode = .highQualityFormat
             options.resizeMode = .fast
             options.isNetworkAccessAllowed = false
             options.isSynchronous = false
