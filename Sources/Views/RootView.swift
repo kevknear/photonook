@@ -4,6 +4,7 @@ import UIKit
 /// Contenedor principal. Tres pestañas navegables: revisar (mazo), lote por borrar y filtros.
 struct RootView: View {
     @Environment(SwipeViewModel.self) private var model
+    @Environment(\.scenePhase) private var scenePhase
     @State private var didBootstrap = false
     /// Solo en arranque en frío: `RootView` se construye una vez por proceso,
     /// así que volver desde segundo plano no la repite.
@@ -83,6 +84,11 @@ struct RootView: View {
             guard !didBootstrap else { return }
             didBootstrap = true
             await model.bootstrap()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            // Al salir de primer plano, asegura el progreso en disco: iOS puede
+            // matar la app sin previo aviso mientras está suspendida.
+            if phase != .active { model.flushDecisions() }
         }
         .alert(
             "Something went wrong",

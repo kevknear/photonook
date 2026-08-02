@@ -338,6 +338,10 @@ final class SwipeViewModel {
         phase = .loading
         resetCounters()
 
+        // Suelta la caché de la sección anterior: sus imágenes ya no hacen falta
+        // y con secciones grandes ocupan bastante.
+        service.stopCachingAll()
+
         // El fetch de Photos es lazy y rápido; lo hacemos en el MainActor para no
         // cruzar objetos PHAsset (no Sendable) entre contextos de concurrencia.
         await Task.yield()
@@ -384,6 +388,17 @@ final class SwipeViewModel {
         }
     }
 
+    /// Escribe ya, sin esperar al retardo.
+    ///
+    /// Se llama al pasar la app a segundo plano: iOS mata apps suspendidas
+    /// continuamente, y sin esto los últimos swipes se perderían dentro de la
+    /// ventana del antirrebote. Aquí sí interesa que sea síncrono: en la
+    /// transición a segundo plano hay margen, pero no para esperar a otra tarea.
+    func flushDecisions() {
+        saveTask?.cancel()
+        DecisionStore.save(storedDecisions)
+    }
+
     private func persist(_ decision: Decision?, for id: String) {
         if let decision {
             storedDecisions[id] = DecisionStore.Entry(
@@ -428,7 +443,7 @@ final class SwipeViewModel {
     }
 
     /// Olvida lo decidido sobre las fotos de la sección actual.
-    func forgetProgressForCurrentSection() {
+    private func forgetProgressForCurrentSection() {
         for asset in assets {
             storedDecisions.removeValue(forKey: asset.localIdentifier)
         }
@@ -748,10 +763,7 @@ final class SwipeViewModel {
     /// Sin esto, con la persistencia activa recargaría y aparecería todo ya decidido.
     func startNewSession() async {
         reviewMode = .grid
-        for asset in assets {
-            storedDecisions.removeValue(forKey: asset.localIdentifier)
-        }
-        scheduleDecisionSave()
+        forgetProgressForCurrentSection()
         await loadAssets()
     }
 }
