@@ -204,6 +204,55 @@
         }
       }
     },
+    "%lld in this section" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld en esta sección" }
+        }
+      }
+    },
+    "%lld left to review" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%lld por revisar" }
+        }
+      }
+    },
+    "Back to the gallery" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Volver a la galería" }
+        }
+      }
+    },
+    "Continue where I left off" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Seguir donde lo dejé" }
+        }
+      }
+    },
+    "Gallery" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Galería" }
+        }
+      }
+    },
+    "Or tap any photo to start there." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "O toca cualquier foto para empezar por ella." }
+        }
+      }
+    },
+    "Start from the beginning" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Empezar desde el principio" }
+        }
+      }
+    },
     "Back to deck" : {
       "localizations" : {
         "es" : {

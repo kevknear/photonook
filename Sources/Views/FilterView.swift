@@ -252,6 +252,9 @@ struct FilterView: View {
         model.selectedTab = .review
 
         if reload {
+            // Al recargar se pierde el punto en que estabas: la cuadrícula es
+            // el sitio correcto para volver a decidir por dónde entrar.
+            model.showGrid()
             Task { await model.loadAssets() }
         }
     }

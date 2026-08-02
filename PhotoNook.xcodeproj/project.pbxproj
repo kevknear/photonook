@@ -20,6 +20,7 @@
 		AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0114 /* GalleryGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */; };
 		AAAAAAAAAAAAAAAAAAAA0121 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */; };
 		AAAAAAAAAAAAAAAAAAAA0122 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */; };
@@ -43,6 +44,7 @@
 		AAAAAAAAAAAAAAAAAAAA0212 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryGridView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0221 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0222 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				AAAAAAAAAAAAAAAAAAAA0211 /* TrashTrayView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				AAAAAAAAAAAAAAAAAAAA0111 /* Theme.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0114 /* GalleryGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

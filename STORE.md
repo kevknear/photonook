@@ -13,7 +13,7 @@ Textos listos para pegar en App Store Connect. Los límites de caracteres son de
 **Promotional Text** (170)
 
 ```
-Less mess. More memories. Swipe left to clear the clutter, right to keep what matters — then delete the whole batch at once.
+Got 12,000 photos? Start anywhere. Tap any photo in your library and swipe from there — no endless scroll, no starting over.
 ```
 
 **Keywords** (100, comma-separated, no spaces after commas)
@@ -28,6 +28,9 @@ cleanup,declutter,storage,space,swipe,screenshots,duplicate,delete,organize,albu
 A cozy place for your photos.
 
 PhotoNook makes cleaning up your photo library feel simple, calm, and satisfying. Swipe through your memories, keep the ones that matter, and clear out the clutter — one photo at a time.
+
+START ANYWHERE, NOT FROM PHOTO ONE
+Most cleanup apps march you through your library in order. With 12,000 photos that's hopeless. PhotoNook shows you the whole section as a grid: tap any photo and start swiping from there, jump back, pick another spot. Your progress is tracked per photo, so you can clean up in short sittings without ever losing your place.
 
 SWIPE TO DECIDE
 Left to discard, right to keep. One photo at a time, no endless multi-select.
@@ -71,7 +74,7 @@ First release. Swipe to clean up your gallery, review everything in the tray, an
 **Texto promocional** (170)
 
 ```
-Menos desorden. Más recuerdos. Desliza a la izquierda para descartar, a la derecha para conservar, y borra todo el lote de una vez.
+¿12.000 fotos? Empieza por donde quieras. Toca cualquier foto de tu galería y desliza desde ahí. Sin recorrerlo todo y sin volver a empezar.
 ```
 
 **Palabras clave** (100)
@@ -86,6 +89,9 @@ limpiar,liberar,espacio,almacenamiento,capturas,duplicadas,borrar,organizar,albu
 Un rincón acogedor para tus fotos.
 
 PhotoNook hace que limpiar tu galería resulte simple, tranquilo y satisfactorio. Desliza por tus recuerdos, quédate con los que importan y deshazte del desorden, foto a foto.
+
+EMPIEZA POR DONDE QUIERAS, NO POR LA PRIMERA
+Casi todas las apps de limpieza te hacen recorrer la galería en orden. Con 12.000 fotos eso no hay quien lo aguante. PhotoNook te muestra la sección entera como cuadrícula: tocas cualquier foto y empiezas a deslizar desde ahí, vuelves atrás, eliges otro punto. El progreso se guarda foto a foto, así que puedes limpiar en ratos sueltos sin perder nunca el hilo.
 
 DESLIZA PARA DECIDIR
 Izquierda para descartar, derecha para conservar. Una foto cada vez, sin selecciones múltiples interminables.
@@ -134,10 +140,15 @@ analítica ni SDK de terceros. El acceso a Fotos es funcional y no sale del disp
 
 ## Capturas
 
-Entre 2 y 8 por tamaño de dispositivo, tomadas de pantallas reales. Sugerencia de guion:
+Entre 2 y 8 por tamaño de dispositivo, tomadas de pantallas reales. Guion sugerido:
 
-1. El mazo con una foto atractiva y el sello "KEEP" a medio gesto.
-2. La bandeja "To delete" llena, con el botón rojo de borrar el lote.
-3. El explorador con las secciones y sus recuentos.
-4. El resumen final con el espacio recuperado.
-5. Ajustes en modo oscuro, para enseñar que existe.
+1. **La cuadrícula de la galería** con parte de las fotos ya decididas (atenuadas con corazón o
+   papelera) y el contador de "quedan N". Es el argumento diferencial y debe ir primera.
+2. El mazo con una foto atractiva y el sello "KEEP" a medio gesto.
+3. La bandeja "To delete" llena, con el botón rojo de borrar el lote.
+4. El explorador con las secciones y sus recuentos.
+5. El resumen final con el espacio recuperado.
+6. Ajustes en modo oscuro, para enseñar que existe.
+
+Las dos primeras son las que aparecen en los resultados de búsqueda: entre ambas tienen que
+contar "empieza por donde quieras" y "desliza para decidir".

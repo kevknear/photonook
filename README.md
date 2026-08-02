@@ -9,6 +9,15 @@ swipe left to discard, swipe right to keep.
 
 ## Features
 
+**Start anywhere.** Picking a section opens it as a grid, not as a deck. Tap any photo — the
+4,532nd if you like — and the deck starts there. Go back to the grid whenever you want, pick a
+different spot, keep going. With a 12,000-photo library, forcing a linear pass from photo one
+makes an app useless for exactly the people who need it most.
+
+Decisions are tracked per photo rather than by position, so reviewing in any order, across
+several sittings, keeps the counters honest. Already-decided photos are dimmed in the grid with
+a heart or a trash icon.
+
 **Card deck.** The current photo with a peek at the next one, tilt on drag, and "DELETE" / "KEEP"
 stamps that fade in as you commit to a direction. Photos are shown whole rather than cropped —
 you can't decide what to delete from a crop.
@@ -76,6 +85,7 @@ Sources/
   Views/
     RootView.swift           tabs, permissions, empty state, summary
     ExploreView.swift        section catalog with cover thumbnails
+    GalleryGridView.swift    the section as a grid; pick where to start
     SwipeDeckView.swift      the deck, drag gesture, action bar, haptics
     PhotoCardView.swift      a single card (photo + metadata)
     TrashTrayView.swift      staging grid and batch deletion
@@ -84,7 +94,9 @@ Sources/
 
 Scripts/
   make-icon.sh               renders an alternative icon (writes icon-generado.png)
-  reset-demo.sh              generates and loads test photos into the simulator
+  make-landscapes.sh         synthetic landscapes with spread EXIF dates
+  reset-demo.sh              numbered test images for the simulator
+  stress-library.sh          thousands of small photos to test at scale
 ```
 
 The architecture is MVVM: views hold no data logic, the view model owns session state, and a

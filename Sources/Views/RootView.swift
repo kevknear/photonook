@@ -125,23 +125,39 @@ struct ReviewTabView: View {
                 case .empty:
                     EmptyStateView()
 
-                case .ready:
-                    SwipeDeckView()
-
-                case .finished:
-                    SummaryView()
+                case .ready, .finished:
+                    // La cuadrícula manda: es donde se elige el punto de entrada.
+                    // El mazo y el resumen son el segundo paso.
+                    if model.reviewMode == .grid {
+                        GalleryGridView()
+                    } else if model.phase == .finished {
+                        SummaryView()
+                    } else {
+                        SwipeDeckView()
+                    }
                 }
             }
             .navigationTitle(model.filter.source.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        model.selectedTab = .explore
-                    } label: {
-                        Label("Explore", systemImage: "square.grid.2x2")
+                    // En el mazo, atrás lleva a la cuadrícula de la sección.
+                    // En la cuadrícula, a elegir otra sección.
+                    if model.reviewMode == .deck {
+                        Button {
+                            model.showGrid()
+                        } label: {
+                            Label("Gallery", systemImage: "square.grid.3x3")
+                        }
+                        .tint(Theme.discard)
+                    } else {
+                        Button {
+                            model.selectedTab = .explore
+                        } label: {
+                            Label("Explore", systemImage: "square.grid.2x2")
+                        }
+                        .tint(Theme.discard)
                     }
-                    .tint(Theme.discard)
                 }
             }
         }
@@ -316,6 +332,16 @@ struct SummaryView: View {
                 }
 
                 VStack(spacing: 10) {
+                    Button {
+                        model.showGrid()
+                    } label: {
+                        CozySecondaryLabel(
+                            title: String(localized: "Back to the gallery"),
+                            icon: "square.grid.3x3.fill"
+                        )
+                    }
+                    .buttonStyle(BouncyButtonStyle())
+
                     Button {
                         model.selectedTab = .explore
                     } label: {

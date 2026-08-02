@@ -56,14 +56,34 @@ final class SwipeViewModel {
         var defersDeletion: Bool { self != .immediate }
     }
 
+    /// Qué se decidió sobre una foto concreta.
+    enum Decision: Equatable {
+        case kept
+        case discarded
+    }
+
+    /// Cómo se está mirando la sección activa.
+    enum ReviewMode {
+        /// Cuadrícula: se ve la sección entera y se elige por dónde empezar.
+        case grid
+        /// Mazo: se decide foto a foto.
+        case deck
+    }
+
     /// Una decisión tomada, para poder deshacerla.
     private struct HistoryEntry {
         let asset: PHAsset
         let index: Int
-        let wasKept: Bool
+        let decision: Decision
+        /// Qué había antes: al poder entrar por cualquier punto, una foto puede
+        /// revisarse dos veces y deshacer tiene que devolverla a su estado previo,
+        /// no simplemente borrar la decisión.
+        let previous: Decision?
         let bytes: Int64
         /// Si el borrado ya se ejecutó en el sistema, la acción no se puede revertir del todo.
         let alreadyCommitted: Bool
+
+        var wasKept: Bool { decision == .kept }
     }
 
     // MARK: - Estado publicado
@@ -76,10 +96,20 @@ final class SwipeViewModel {
     var deletedCount: Int = 0
     var bytesFreed: Int64 = 0
 
+    /// Qué se ha decidido sobre cada foto, por identificador.
+    ///
+    /// Antes bastaba con `currentIndex` porque el mazo se recorría en orden y
+    /// "revisadas" era todo lo que quedaba detrás. Desde que se puede entrar por
+    /// cualquier punto de la galería eso ya no vale: hay que saber exactamente
+    /// qué fotos tienen decisión, sin importar el orden en que se tomaron.
+    private(set) var decisions: [String: Decision] = [:]
+
     var filter = FilterOptions()
     var deletionMode: DeletionMode = .endOfSession
     /// Pestaña activa. En el modelo para que cualquier vista pueda navegar.
     var selectedTab: AppTab = .explore
+    /// Cuadrícula o mazo dentro de la pestaña Revisar.
+    var reviewMode: ReviewMode = .grid
 
     /// Catálogo del explorador.
     var sectionGroups: [LibrarySectionGroup] = []
@@ -117,6 +147,14 @@ final class SwipeViewModel {
     var totalCount: Int { assets.count }
 
     var reviewedCount: Int { keptCount + deletedCount }
+
+    /// Qué se decidió sobre una foto, o `nil` si aún no se ha visto.
+    func decision(for asset: PHAsset) -> Decision? {
+        decisions[asset.localIdentifier]
+    }
+
+    /// Cuántas quedan por decidir en la sección.
+    var remainingCount: Int { max(0, totalCount - reviewedCount) }
 
     var progress: Double {
         guard totalCount > 0 else { return 0 }
@@ -251,7 +289,11 @@ final class SwipeViewModel {
         isLoadingSections = false
     }
 
-    /// Elige un origen desde el explorador y salta al mazo.
+    /// Elige un origen desde el explorador y abre su cuadrícula.
+    ///
+    /// No salta directo al mazo: con una sección de miles de fotos, empezar
+    /// siempre por la primera es inservible. La cuadrícula deja elegir el punto
+    /// de entrada.
     func choose(source: PhotoSource) async {
         filter.source = source
         // Las secciones de fecha ya vienen acotadas: no acumules el rango rápido.
@@ -262,7 +304,30 @@ final class SwipeViewModel {
             filter.skipFavorites = false
         }
         selectedTab = .review
+        reviewMode = .grid
         await loadAssets()
+    }
+
+    // MARK: - Entrar y salir del mazo
+
+    /// Abre el mazo empezando por una foto concreta de la cuadrícula.
+    func startDeck(at index: Int) {
+        guard assets.indices.contains(index) else { return }
+        currentIndex = index
+        if phase == .finished { phase = .ready }
+        reviewMode = .deck
+        warmCache()
+    }
+
+    /// Abre el mazo por la primera foto sin decidir, o por el principio si no queda ninguna.
+    func startDeckFromFirstUndecided() {
+        let index = assets.firstIndex { decisions[$0.localIdentifier] == nil } ?? 0
+        startDeck(at: index)
+    }
+
+    /// Vuelve a la cuadrícula sin perder nada de la sesión.
+    func showGrid() {
+        reviewMode = .grid
     }
 
     func loadAssets() async {
@@ -286,26 +351,65 @@ final class SwipeViewModel {
         keptCount = 0
         deletedCount = 0
         bytesFreed = 0
+        decisions = [:]
         pendingDeletion = []
         history = []
         errorMessage = nil
         infoMessage = nil
     }
 
+    // MARK: - Registro de decisiones
+
+    /// Anota la decisión sobre una foto y ajusta los contadores.
+    ///
+    /// Devuelve la decisión anterior, si la había. Como se puede entrar por
+    /// cualquier punto de la cuadrícula, una foto puede revisarse más de una vez:
+    /// en ese caso hay que deshacer el efecto de la decisión previa antes de
+    /// aplicar la nueva, o los contadores se descuadran.
+    @discardableResult
+    private func record(_ decision: Decision, for asset: PHAsset, bytes: Int64) -> Decision? {
+        let id = asset.localIdentifier
+        let previous = decisions[id]
+
+        switch previous {
+        case .kept:
+            keptCount = max(0, keptCount - 1)
+        case .discarded:
+            deletedCount = max(0, deletedCount - 1)
+            bytesFreed = max(0, bytesFreed - (sizeCache[id] ?? 0))
+            pendingDeletion.removeAll { $0.localIdentifier == id }
+        case nil:
+            break
+        }
+
+        decisions[id] = decision
+
+        switch decision {
+        case .kept:
+            keptCount += 1
+        case .discarded:
+            deletedCount += 1
+            bytesFreed += bytes
+        }
+
+        return previous
+    }
+
     // MARK: - Acciones de swipe
 
     func keep() {
         guard let asset = currentAsset else { return }
+        let previous = record(.kept, for: asset, bytes: 0)
         history.append(
             HistoryEntry(
                 asset: asset,
                 index: currentIndex,
-                wasKept: true,
+                decision: .kept,
+                previous: previous,
                 bytes: 0,
                 alreadyCommitted: false
             )
         )
-        keptCount += 1
         advance()
     }
 
@@ -314,16 +418,15 @@ final class SwipeViewModel {
         let bytes = sizeCache[asset.localIdentifier] ?? 0
         let index = currentIndex
 
-        deletedCount += 1
-        bytesFreed += bytes
+        let previous = record(.discarded, for: asset, bytes: bytes)
         advance()
 
         switch deletionMode {
         case .chunked, .endOfSession:
             pendingDeletion.append(asset)
             history.append(
-                HistoryEntry(asset: asset, index: index, wasKept: false,
-                             bytes: bytes, alreadyCommitted: false)
+                HistoryEntry(asset: asset, index: index, decision: .discarded,
+                             previous: previous, bytes: bytes, alreadyCommitted: false)
             )
             if deletionMode == .chunked && pendingDeletion.count >= max(1, chunkSize) {
                 Task { await commitPendingDeletions() }
@@ -331,8 +434,8 @@ final class SwipeViewModel {
 
         case .immediate:
             history.append(
-                HistoryEntry(asset: asset, index: index, wasKept: false,
-                             bytes: bytes, alreadyCommitted: true)
+                HistoryEntry(asset: asset, index: index, decision: .discarded,
+                             previous: previous, bytes: bytes, alreadyCommitted: true)
             )
             Task { await commitImmediate(asset: asset, bytes: bytes, index: index) }
         }
@@ -343,12 +446,43 @@ final class SwipeViewModel {
             try await service.delete(assets: [asset])
         } catch {
             // El usuario canceló la alerta del sistema: revertimos la decisión.
-            deletedCount = max(0, deletedCount - 1)
-            bytesFreed = max(0, bytesFreed - bytes)
-            history.removeAll { $0.asset.localIdentifier == asset.localIdentifier && !$0.wasKept }
+            let id = asset.localIdentifier
+            let entry = history.last { $0.asset.localIdentifier == id && !$0.wasKept }
+            restore(entry?.previous, for: asset, bytes: bytes)
+            history.removeAll { $0.asset.localIdentifier == id && !$0.wasKept }
             currentIndex = min(currentIndex, index)
             if phase == .finished { phase = .ready }
             infoMessage = String(localized: "Not deleted. You can try again.")
+        }
+    }
+
+    /// Devuelve una foto a una decisión anterior, o la deja sin decidir si era `nil`.
+    private func restore(_ decision: Decision?, for asset: PHAsset, bytes: Int64) {
+        let id = asset.localIdentifier
+
+        switch decisions[id] {
+        case .kept:
+            keptCount = max(0, keptCount - 1)
+        case .discarded:
+            deletedCount = max(0, deletedCount - 1)
+            bytesFreed = max(0, bytesFreed - bytes)
+            pendingDeletion.removeAll { $0.localIdentifier == id }
+        case nil:
+            break
+        }
+
+        guard let decision else {
+            decisions.removeValue(forKey: id)
+            return
+        }
+
+        decisions[id] = decision
+        switch decision {
+        case .kept:
+            keptCount += 1
+        case .discarded:
+            deletedCount += 1
+            bytesFreed += sizeCache[id] ?? 0
         }
     }
 
@@ -373,17 +507,14 @@ final class SwipeViewModel {
         }
 
         history.removeLast()
-
-        if last.wasKept {
-            keptCount = max(0, keptCount - 1)
-        } else {
-            deletedCount = max(0, deletedCount - 1)
-            bytesFreed = max(0, bytesFreed - last.bytes)
-            pendingDeletion.removeAll { $0.localIdentifier == last.asset.localIdentifier }
-        }
+        // Vuelve al estado que tenía la foto antes de esta decisión, que no
+        // siempre es "sin decidir": pudo revisarse ya en otra pasada.
+        restore(last.previous, for: last.asset, bytes: last.bytes)
 
         currentIndex = last.index
         if phase == .finished { phase = .ready }
+        // Deshacer implica volver a mirar esa foto, así que abre el mazo.
+        reviewMode = .deck
     }
 
     // MARK: - Confirmar lote
@@ -396,9 +527,8 @@ final class SwipeViewModel {
 
         pendingDeletion.removeAll { identifiers.contains($0.localIdentifier) }
         for asset in rescued {
-            deletedCount = max(0, deletedCount - 1)
-            bytesFreed = max(0, bytesFreed - (sizeCache[asset.localIdentifier] ?? 0))
-            keptCount += 1
+            // Pasa de descartada a conservada: `record` cuadra los contadores.
+            record(.kept, for: asset, bytes: 0)
         }
         history.removeAll { !$0.wasKept && identifiers.contains($0.asset.localIdentifier) }
     }
@@ -418,8 +548,8 @@ final class SwipeViewModel {
         history.removeAll { !$0.wasKept && identifiers.contains($0.asset.localIdentifier) }
 
         for asset in returning {
-            deletedCount = max(0, deletedCount - 1)
-            bytesFreed = max(0, bytesFreed - (sizeCache[asset.localIdentifier] ?? 0))
+            // Vuelve a quedar sin decidir: no es conservada, es "ya veré".
+            restore(nil, for: asset, bytes: sizeCache[asset.localIdentifier] ?? 0)
             assets.append(asset)
         }
 
@@ -512,6 +642,7 @@ final class SwipeViewModel {
     // MARK: - Reinicio
 
     func startNewSession() async {
+        reviewMode = .grid
         await loadAssets()
     }
 }
