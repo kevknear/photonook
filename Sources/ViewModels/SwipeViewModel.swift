@@ -128,6 +128,9 @@ final class SwipeViewModel {
     private var sizeTask: Task<Void, Never>?
     private var libraryObserver: PhotoLibraryChangeBroadcaster?
     private var libraryChangeTask: Task<Void, Never>?
+    /// Decisiones tal como están en disco, de todas las secciones, no solo la actual.
+    private var storedDecisions: [String: DecisionStore.Entry] = [:]
+    private var saveTask: Task<Void, Never>?
 
     private let service = PhotoLibraryService.shared
 
@@ -212,6 +215,7 @@ final class SwipeViewModel {
 
     private func start() async {
         observeLibrary()
+        loadStoredDecisions()
         // El catálogo primero (es la pantalla de inicio); el mazo se prepara detrás.
         async let catalog: Void = loadSections()
         await loadAssets()
@@ -343,6 +347,9 @@ final class SwipeViewModel {
         currentIndex = 0
         phase = fetched.isEmpty ? .empty : .ready
 
+        // Recupera lo decidido en sesiones anteriores sobre estas mismas fotos.
+        restoreProgress()
+
         prefetchSizes()
         warmCache()
     }
@@ -356,6 +363,92 @@ final class SwipeViewModel {
         history = []
         errorMessage = nil
         infoMessage = nil
+    }
+
+    // MARK: - Persistencia de las decisiones
+
+    /// Carga del disco lo decidido en sesiones anteriores, de todas las secciones.
+    private func loadStoredDecisions() {
+        storedDecisions = DecisionStore.load()
+    }
+
+    /// Guarda con un pequeño retardo: durante una tanda de swipes esto se llamaría
+    /// en cada foto, y escribir miles de entradas cada vez sería absurdo.
+    private func scheduleDecisionSave() {
+        saveTask?.cancel()
+        saveTask = Task { @MainActor [self] in
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            guard !Task.isCancelled else { return }
+            let snapshot = storedDecisions
+            Task.detached(priority: .utility) { DecisionStore.save(snapshot) }
+        }
+    }
+
+    private func persist(_ decision: Decision?, for id: String) {
+        if let decision {
+            storedDecisions[id] = DecisionStore.Entry(
+                decision: decision == .kept ? "kept" : "discarded",
+                date: Date()
+            )
+        } else {
+            storedDecisions.removeValue(forKey: id)
+        }
+        scheduleDecisionSave()
+    }
+
+    /// Rehace contadores y lote pendiente de la sección recién cargada a partir
+    /// de lo que ya estaba decidido.
+    ///
+    /// El lote no se guarda aparte: si una foto está marcada como descartada y
+    /// **sigue existiendo** en la fototeca, es que nunca llegó a borrarse. Esa
+    /// invariante basta para reconstruirlo sin almacenar nada más.
+    private func restoreProgress() {
+        keptCount = 0
+        deletedCount = 0
+        bytesFreed = 0
+        pendingDeletion = []
+        decisions = [:]
+
+        for asset in assets {
+            let id = asset.localIdentifier
+            guard let stored = storedDecisions[id] else { continue }
+
+            let decision: Decision = stored.decision == "kept" ? .kept : .discarded
+            decisions[id] = decision
+
+            switch decision {
+            case .kept:
+                keptCount += 1
+            case .discarded:
+                deletedCount += 1
+                bytesFreed += sizeCache[id] ?? 0
+                pendingDeletion.append(asset)
+            }
+        }
+    }
+
+    /// Olvida lo decidido sobre las fotos de la sección actual.
+    func forgetProgressForCurrentSection() {
+        for asset in assets {
+            storedDecisions.removeValue(forKey: asset.localIdentifier)
+        }
+        scheduleDecisionSave()
+        restoreProgress()
+        history = []
+        currentIndex = 0
+        if phase == .finished { phase = .ready }
+    }
+
+    /// Olvida todo el historial de revisión, de todas las secciones.
+    func forgetAllProgress() {
+        storedDecisions = [:]
+        saveTask?.cancel()
+        DecisionStore.clear()
+        restoreProgress()
+        history = []
+        currentIndex = 0
+        if phase == .finished { phase = .ready }
+        infoMessage = String(localized: "Review history cleared.")
     }
 
     // MARK: - Registro de decisiones
@@ -383,6 +476,7 @@ final class SwipeViewModel {
         }
 
         decisions[id] = decision
+        persist(decision, for: id)
 
         switch decision {
         case .kept:
@@ -473,10 +567,12 @@ final class SwipeViewModel {
 
         guard let decision else {
             decisions.removeValue(forKey: id)
+            persist(nil, for: id)
             return
         }
 
         decisions[id] = decision
+        persist(decision, for: id)
         switch decision {
         case .kept:
             keptCount += 1
@@ -632,6 +728,13 @@ final class SwipeViewModel {
     private func merge(sizes: [String: Int64]) {
         for (key, value) in sizes where sizeCache[key] == nil {
             sizeCache[key] = value
+            // Si ya estaba descartada pero aún no sabíamos cuánto pesaba —al
+            // restaurar progreso de otra sesión, o al descartar antes de que el
+            // cálculo llegase—, súmalo ahora. Solo entra aquí la primera vez que
+            // se conoce el tamaño, así que no puede contarse dos veces.
+            if decisions[key] == .discarded {
+                bytesFreed += value
+            }
         }
     }
 
@@ -641,8 +744,14 @@ final class SwipeViewModel {
 
     // MARK: - Reinicio
 
+    /// Repasa la sección desde cero: olvida lo decidido sobre sus fotos.
+    /// Sin esto, con la persistencia activa recargaría y aparecería todo ya decidido.
     func startNewSession() async {
         reviewMode = .grid
+        for asset in assets {
+            storedDecisions.removeValue(forKey: asset.localIdentifier)
+        }
+        scheduleDecisionSave()
         await loadAssets()
     }
 }

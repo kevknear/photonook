@@ -10,6 +10,7 @@ struct FilterView: View {
     @State private var mode: SwipeViewModel.DeletionMode = .endOfSession
     @State private var chunk: Int = 25
     @State private var showResetWarning = false
+    @State private var showForgetWarning = false
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @AppStorage(CloudDownloadPolicy.storageKey)
@@ -116,6 +117,19 @@ struct FilterView: View {
                     Text("Appearance")
                 } footer: {
                     Text("“System” follows your iPhone's Display & Brightness setting. Changes apply instantly and are remembered.")
+                }
+
+                Section {
+                    Button(role: .destructive) {
+                        showForgetWarning = true
+                    } label: {
+                        Label("Clear review history", systemImage: "arrow.counterclockwise")
+                            .foregroundStyle(Theme.discard)
+                    }
+                } header: {
+                    Text("Progress")
+                } footer: {
+                    Text("PhotoNook remembers what you decided about each photo so you can clean up over several sittings. Clearing makes every photo show up as unreviewed again. It never deletes or restores anything.")
                 }
 
                 Section {
@@ -248,6 +262,18 @@ struct FilterView: View {
                 Button("Cancel", role: .cancel) {}
             } message: {
                 Text("Reloading now empties the tray. Those photos stay in your gallery — nothing gets deleted.")
+            }
+            .confirmationDialog(
+                "Clear your review history?",
+                isPresented: $showForgetWarning,
+                titleVisibility: .visible
+            ) {
+                Button("Clear history", role: .destructive) {
+                    model.forgetAllProgress()
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Every photo will show up as unreviewed again. Your photos are not affected.")
             }
         }
     }

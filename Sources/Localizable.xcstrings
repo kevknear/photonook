@@ -406,6 +406,55 @@
         }
       }
     },
+    "Clear history" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrar historial" }
+        }
+      }
+    },
+    "Clear review history" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Borrar el historial de revisión" }
+        }
+      }
+    },
+    "Clear your review history?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "¿Borrar el historial de revisión?" }
+        }
+      }
+    },
+    "Every photo will show up as unreviewed again. Your photos are not affected." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Todas las fotos volverán a aparecer como sin revisar. Tus fotos no se tocan." }
+        }
+      }
+    },
+    "PhotoNook remembers what you decided about each photo so you can clean up over several sittings. Clearing makes every photo show up as unreviewed again. It never deletes or restores anything." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PhotoNook recuerda lo que decidiste sobre cada foto para que puedas limpiar en varios ratos. Al borrarlo, todas volverán a aparecer como sin revisar. Nunca borra ni recupera nada." }
+        }
+      }
+    },
+    "Progress" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Progreso" }
+        }
+      }
+    },
+    "Review history cleared." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Historial de revisión borrado." }
+        }
+      }
+    },
     "Check again" : {
       "localizations" : {
         "es" : {
