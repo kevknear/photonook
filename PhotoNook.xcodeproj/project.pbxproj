@@ -21,6 +21,7 @@
 		AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0114 /* GalleryGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */; };
+		AAAAAAAAAAAAAAAAAAAA0117 /* PhotoZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0218 /* PhotoZoomView.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0115 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0216 /* NetworkStatus.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0116 /* DecisionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0217 /* DecisionStore.swift */; };
 		AAAAAAAAAAAAAAAAAAAA0120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryGridView.swift; sourceTree = "<group>"; };
+		AAAAAAAAAAAAAAAAAAAA0218 /* PhotoZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomView.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0216 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0217 /* DecisionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionStore.swift; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAAAAAA0220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				AAAAAAAAAAAAAAAAAAAA0213 /* ExploreView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0214 /* SplashView.swift */,
 				AAAAAAAAAAAAAAAAAAAA0215 /* GalleryGridView.swift */,
+				AAAAAAAAAAAAAAAAAAAA0218 /* PhotoZoomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				AAAAAAAAAAAAAAAAAAAA0112 /* ExploreView.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0113 /* SplashView.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0114 /* GalleryGridView.swift in Sources */,
+				AAAAAAAAAAAAAAAAAAAA0117 /* PhotoZoomView.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0115 /* NetworkStatus.swift in Sources */,
 				AAAAAAAAAAAAAAAAAAAA0116 /* DecisionStore.swift in Sources */,
 			);

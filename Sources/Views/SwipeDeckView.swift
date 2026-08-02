@@ -7,8 +7,15 @@ struct SwipeDeckView: View {
 
     @State private var offset: CGSize = .zero
     @State private var isAnimatingOut = false
+    @State private var zoomTarget: ZoomTarget?
 
     private let threshold: CGFloat = 110
+
+    /// `PHAsset` no es `Identifiable`, y `fullScreenCover(item:)` lo necesita.
+    private struct ZoomTarget: Identifiable {
+        let asset: PHAsset
+        var id: String { asset.localIdentifier }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -39,12 +46,14 @@ struct SwipeDeckView: View {
                 }
 
                 if let current = model.currentAsset {
-                    PhotoCardView(asset: current)
-                        .overlay { decisionOverlay }
-                        .offset(x: offset.width, y: offset.height * 0.3)
-                        .rotationEffect(.degrees(Double(offset.width) / 24))
-                        .gesture(dragGesture)
-                        .id(current.localIdentifier)
+                    PhotoCardView(asset: current) {
+                        zoomTarget = ZoomTarget(asset: current)
+                    }
+                    .overlay { decisionOverlay }
+                    .offset(x: offset.width, y: offset.height * 0.3)
+                    .rotationEffect(.degrees(Double(offset.width) / 24))
+                    .gesture(dragGesture)
+                    .id(current.localIdentifier)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -63,6 +72,13 @@ struct SwipeDeckView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .cozyBackground()
         .overlay(alignment: .bottom) { toast }
+        .fullScreenCover(item: $zoomTarget) { target in
+            PhotoZoomView(
+                asset: target.asset,
+                onKeep: { animateOut(toLeft: false) },
+                onDiscard: { animateOut(toLeft: true) }
+            )
+        }
     }
 
     // MARK: - Gesto

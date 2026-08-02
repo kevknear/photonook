@@ -9,6 +9,8 @@ struct PhotoCardView: View {
     @Environment(SwipeViewModel.self) private var model
 
     let asset: PHAsset
+    /// Solo la carta de encima lleva lupa: en las del fondo estorbaría.
+    var onZoom: (() -> Void)?
 
     @State private var image: UIImage?
     /// Descargando el original desde iCloud, con su avance de 0 a 1.
@@ -57,10 +59,31 @@ struct PhotoCardView: View {
                         .stroke(Theme.hairline.opacity(0.5), lineWidth: 1)
                 )
                 .overlay(alignment: .topTrailing) { tags }
+                .overlay(alignment: .bottomTrailing) { zoomButton }
                 .overlay(alignment: .bottom) { cloudStatus }
                 .task(id: asset.localIdentifier) {
                     await load(targetSize: geometry.size)
                 }
+        }
+    }
+
+    /// Lupa para abrir el visor. Imprescindible en capturas de pantalla: a tamaño
+    /// de carta no se puede leer el texto, y sin leerlo no hay forma de decidir.
+    @ViewBuilder
+    private var zoomButton: some View {
+        if let onZoom {
+            Button(action: onZoom) {
+                Image(systemName: "magnifyingglass")
+                    .font(.fixed(16, .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .frame(width: 40, height: 40)
+                    .background(Theme.surface.opacity(0.9), in: Circle())
+                    .overlay(Circle().stroke(Theme.hairline, lineWidth: 1))
+                    .shadow(color: Theme.shadow.opacity(0.25), radius: 5, y: 2)
+            }
+            .buttonStyle(BouncyButtonStyle())
+            .accessibilityLabel(String(localized: "Zoom in on this photo"))
+            .padding(12)
         }
     }
 

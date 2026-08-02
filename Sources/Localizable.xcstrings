@@ -406,6 +406,28 @@
         }
       }
     },
+    "Close" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cerrar" }
+        }
+      }
+    },
+    "Fit" : {
+      "comment" : "Botón para devolver la foto ampliada a su tamaño original.",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajustar" }
+        }
+      }
+    },
+    "Zoom in on this photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ampliar esta foto" }
+        }
+      }
+    },
     "Clear history" : {
       "localizations" : {
         "es" : {
