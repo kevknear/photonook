@@ -14,6 +14,16 @@ struct PhotoCardView: View {
     /// Descargando el original desde iCloud, con su avance de 0 a 1.
     @State private var cloudProgress: Double?
     @State private var cloudFailed = false
+    /// El original está en iCloud y la política actual no permite bajarlo solo.
+    @State private var awaitingManualDownload = false
+    @State private var lastTargetSize: CGSize = .zero
+
+    @AppStorage(CloudDownloadPolicy.storageKey)
+    private var cloudPolicyRaw = CloudDownloadPolicy.wifiOnly.rawValue
+
+    private var cloudPolicy: CloudDownloadPolicy {
+        CloudDownloadPolicy(rawValue: cloudPolicyRaw) ?? .wifiOnly
+    }
 
     var body: some View {
         VStack(spacing: 12) {
@@ -69,36 +79,50 @@ struct PhotoCardView: View {
         .padding(10)
     }
 
-    /// Aviso de que la foto viene de iCloud, con su avance.
+    /// Estado de la foto respecto a iCloud: descargando, esperando permiso, o fallida.
     @ViewBuilder
     private var cloudStatus: some View {
         if let progress = cloudProgress {
-            HStack(spacing: 7) {
+            capsule(background: Theme.textPrimary.opacity(0.78)) {
                 ProgressView(value: max(0.02, progress))
                     .progressViewStyle(.circular)
                     .controlSize(.mini)
                     .tint(Theme.textOnAccent)
                 Text("Downloading from iCloud…")
             }
-            .font(.fixed(11, .medium))
-            .foregroundStyle(Theme.textOnAccent)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 7)
-            .background(Theme.textPrimary.opacity(0.78), in: Capsule())
-            .padding(.bottom, 14)
             .transition(.opacity)
+
+        } else if awaitingManualDownload {
+            // La política del usuario impide bajarla sola, pero puede pedir esta.
+            Button {
+                Task { await fetchFull(size: lastTargetSize, allowsNetwork: true) }
+            } label: {
+                capsule(background: Theme.info.opacity(0.92)) {
+                    Image(systemName: "icloud.and.arrow.down")
+                    Text("Load full quality")
+                }
+            }
+            .buttonStyle(BouncyButtonStyle())
+
         } else if cloudFailed {
-            HStack(spacing: 7) {
+            capsule(background: Theme.discard.opacity(0.9)) {
                 Image(systemName: "icloud.slash")
                 Text("Couldn't load this one")
             }
+        }
+    }
+
+    private func capsule<Content: View>(
+        background: Color,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        HStack(spacing: 7) { content() }
             .font(.fixed(11, .medium))
             .foregroundStyle(Theme.textOnAccent)
             .padding(.horizontal, 12)
             .padding(.vertical, 7)
-            .background(Theme.discard.opacity(0.9), in: Capsule())
+            .background(background, in: Capsule())
             .padding(.bottom, 14)
-        }
     }
 
     private func tag(icon: String, text: String) -> some View {
@@ -169,6 +193,7 @@ struct PhotoCardView: View {
             width: max(targetSize.width, 300) * scale,
             height: max(targetSize.height, 300) * scale
         )
+        lastTargetSize = size
 
         // Fase 1: lo que haya en local, ya.
         let local = await service.localThumbnail(for: asset, targetSize: size)
@@ -177,12 +202,33 @@ struct PhotoCardView: View {
             withAnimation(.easeOut(duration: 0.15)) { image = thumb }
         }
 
+        // Si el original está en iCloud, decide la política del usuario, no la app.
         if local.isInCloud {
-            cloudProgress = 0
+            let allowed = cloudPolicy.allowsAutomaticDownload(
+                isExpensive: NetworkStatus.shared.isExpensive
+            )
+            guard allowed else {
+                awaitingManualDownload = true
+                if local.image == nil { cloudFailed = true }
+                return
+            }
         }
 
-        // Fase 2: el original, con red si hace falta.
-        let full = await service.fullImage(for: asset, targetSize: size) { progress in
+        await fetchFull(size: size, allowsNetwork: true)
+    }
+
+    /// Trae el original. Se usa tanto en la carga automática como al pulsar
+    /// "Ver en alta calidad".
+    private func fetchFull(size: CGSize, allowsNetwork: Bool) async {
+        awaitingManualDownload = false
+        cloudFailed = false
+        cloudProgress = 0
+
+        let full = await PhotoLibraryService.shared.fullImage(
+            for: asset,
+            targetSize: size,
+            allowsNetwork: allowsNetwork
+        ) { progress in
             Task { @MainActor in
                 // Solo interesa mientras siga siendo la misma carta.
                 if cloudProgress != nil { cloudProgress = progress }
@@ -197,6 +243,9 @@ struct PhotoCardView: View {
         } else if image == nil {
             // Ni local ni descarga: no hay nada que enseñar.
             cloudFailed = true
+        } else {
+            // Hay miniatura pero la descarga falló: deja reintentar.
+            awaitingManualDownload = true
         }
     }
 }

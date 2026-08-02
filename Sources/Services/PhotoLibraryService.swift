@@ -486,18 +486,23 @@ final class PhotoLibraryService: @unchecked Sendable {
     /// Imagen en alta calidad. Puede requerir descarga desde iCloud, así que
     /// informa del avance para que la vista pueda mostrarlo.
     ///
+    /// `allowsNetwork` decide si se permite tirar de red. Con `false`, si el
+    /// original no está en el dispositivo la llamada devuelve `nil` sin gastar
+    /// un solo byte: es lo que respeta la política de datos del usuario.
+    ///
     /// Solo debe usarla el mazo, que muestra una foto cada vez.
     @MainActor
     func fullImage(
         for asset: PHAsset,
         targetSize: CGSize,
+        allowsNetwork: Bool,
         onProgress: @escaping @Sendable (Double) -> Void = { _ in }
     ) async -> UIImage? {
         await withCheckedContinuation { continuation in
             let options = PHImageRequestOptions()
             options.deliveryMode = .highQualityFormat
             options.resizeMode = .fast
-            options.isNetworkAccessAllowed = true
+            options.isNetworkAccessAllowed = allowsNetwork
             options.isSynchronous = false
             // Llega en una cola arbitraria; quien lo reciba se encarga de saltar
             // al MainActor si va a tocar la interfaz.

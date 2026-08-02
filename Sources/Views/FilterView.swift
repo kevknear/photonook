@@ -12,6 +12,15 @@ struct FilterView: View {
     @State private var showResetWarning = false
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
+    @AppStorage(CloudDownloadPolicy.storageKey)
+    private var cloudPolicyRaw = CloudDownloadPolicy.wifiOnly.rawValue
+
+    private var cloudPolicy: Binding<CloudDownloadPolicy> {
+        Binding(
+            get: { CloudDownloadPolicy(rawValue: cloudPolicyRaw) ?? .wifiOnly },
+            set: { cloudPolicyRaw = $0.rawValue }
+        )
+    }
 
     private var appearance: Binding<AppearanceMode> {
         Binding(
@@ -107,6 +116,20 @@ struct FilterView: View {
                     Text("Appearance")
                 } footer: {
                     Text("“System” follows your iPhone's Display & Brightness setting. Changes apply instantly and are remembered.")
+                }
+
+                Section {
+                    Picker("Download from iCloud", selection: cloudPolicy) {
+                        ForEach(CloudDownloadPolicy.allCases) { option in
+                            Text(option.label).tag(option)
+                        }
+                    }
+                    .pickerStyle(.inline)
+                    .labelsHidden()
+                } header: {
+                    Text("Photos stored in iCloud")
+                } footer: {
+                    Text(cloudPolicy.wrappedValue.explanation)
                 }
 
                 Section {

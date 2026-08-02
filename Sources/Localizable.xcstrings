@@ -144,6 +144,69 @@
         }
       }
     },
+    "Always" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Siempre" }
+        }
+      }
+    },
+    "Download from iCloud" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Descargar de iCloud" }
+        }
+      }
+    },
+    "Full-quality photos download whenever needed, including on cellular. Smoothest, but it can use a lot of data." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Las fotos en alta calidad se descargan cuando hagan falta, también con datos móviles. Es lo más fluido, pero puede gastar bastantes datos." }
+        }
+      }
+    },
+    "Load full quality" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ver en alta calidad" }
+        }
+      }
+    },
+    "Never" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nunca" }
+        }
+      }
+    },
+    "On cellular you'll see the local preview and can tap to load full quality for a specific photo." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Con datos móviles verás la vista previa local y podrás tocar para traer en alta calidad una foto concreta." }
+        }
+      }
+    },
+    "Only previews already on your device. Nothing is ever downloaded automatically." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Solo las vistas previas que ya están en tu dispositivo. Nunca se descarga nada automáticamente." }
+        }
+      }
+    },
+    "Photos stored in iCloud" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fotos guardadas en iCloud" }
+        }
+      }
+    },
+    "Wi-Fi only" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Solo con Wi-Fi" }
+        }
+      }
+    },
     "All done" : {
       "localizations" : {
         "es" : {
